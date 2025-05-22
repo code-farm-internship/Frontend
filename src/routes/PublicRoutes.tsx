@@ -1,6 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import Layout from '../layouts/Layout';
 import HomePage from '../pages/HomePage';
+import ProductDetail from '../pages/ProductDetail';
+import Cart from '../pages/Cart';
+import Checkout from '../pages/Checkout';
 
 export const publicRoutes = [
     {
@@ -10,6 +13,18 @@ export const publicRoutes = [
             {
                 index: true,
                 element: <HomePage />,
+            },
+            {
+                path: '/product/:id',
+                element: <ProductDetail />,
+            },
+            {
+                path: '/cart',
+                element: <Cart />,
+            },
+            {
+                path: '/checkout',
+                element: <Checkout />,
             },
             {
                 path: '404',
