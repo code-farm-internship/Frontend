@@ -1,176 +1,151 @@
 import React from 'react';
 import { Typography, Button, Space, Card, Row, Col } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { banners, newReleases, bestSellers, recommendedBooks } from '../data/mock-data';
 import { Book } from '../types';
 
 const { Title, Paragraph } = Typography;
 
-// BookCard Component
-const BookCard: React.FC<{ book: Book }> = ({ book }) => {
-    const { title, price, coverImage, discountPrice } = book;
-
-    return (
-        <Card
-            hoverable
-            cover={
-                <div style={{ height: 300, overflow: 'hidden' }}>
-                    <img
-                        alt={title}
-                        src={coverImage}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            transition: 'transform 0.3s ease',
-                        }}
-                    />
-                </div>
-            }
-            styles={{ body: { padding: 12 } }}
-        >
-            <Card.Meta
-                title={title}
-                description={
-                    <div>
-                        {discountPrice ? (
-                            <>
-                                <span style={{ color: '#ff4d4f', fontWeight: 600 }}>
-                                    {discountPrice.toLocaleString('vi-VN')}đ
-                                </span>
-                                <span style={{ marginLeft: 8, textDecoration: 'line-through', color: '#999' }}>
-                                    {price.toLocaleString('vi-VN')}đ
-                                </span>
-                            </>
-                        ) : (
-                            <span style={{ color: '#ff4d4f', fontWeight: 600 }}>{price.toLocaleString('vi-VN')}đ</span>
-                        )}
-                    </div>
-                }
-            />
-        </Card>
-    );
-};
-
-// BookGrid Component
-const BookGrid: React.FC<{ title: string; books: Book[] }> = ({ title, books }) => {
-    return (
-        <div style={{ marginBottom: 48 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                <Title level={3} style={{ margin: 0 }}>
-                    {title}
-                </Title>
-                <Button type='link' style={{ color: '#ff4d4f' }}>
-                    Xem tất cả
-                </Button>
-            </div>
-            <Row gutter={[16, 16]}>
-                {books.map((book) => (
-                    <Col key={book.id} xs={12} sm={8} md={6}>
-                        <BookCard book={book} />
-                    </Col>
-                ))}
-            </Row>
-        </div>
-    );
-};
-
-// HomePage Component with inline Banner
 const HomePage: React.FC = () => {
-    const banner = banners[0];
+    const navigate = useNavigate();
 
-    return (
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 16px' }}>
-            {/* Banner Inline */}
-            <div
-                style={{
-                    position: 'relative',
-                    height: '400px',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    marginBottom: 48,
-                }}
-            >
-                <div
-                    style={{
-                        position: 'absolute',
-                        inset: 0,
-                        backgroundImage: `url(${banner.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                />
-                <div
-                    style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(90deg, rgba(255,77,79,0.8) 0%, transparent 100%)',
-                    }}
-                />
-                <div
-                    style={{
-                        position: 'absolute',
-                        inset: 0,
-                        padding: '32px 64px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        maxWidth: '600px',
-                    }}
-                >
-                    <Title level={1} style={{ color: '#fff', marginBottom: 16 }}>
+    const Banner: React.FC = () => {
+        const banner = banners[0];
+
+        return (
+            <div className='relative mb-12 h-[400px] overflow-hidden rounded-xl shadow-lg md:h-[500px]'>
+                <img src={banner.image} alt={banner.title} className='absolute inset-0 h-full w-full object-cover' />
+                <div className='absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent' />
+                <div className='relative z-10 flex h-full flex-col justify-center px-6 text-white md:px-16'>
+                    <Title level={1} className='mb-4 text-white drop-shadow-lg'>
                         {banner.title}
                     </Title>
-                    <Paragraph style={{ color: '#fff', fontSize: 16, marginBottom: 24 }}>
-                        {banner.description}
-                    </Paragraph>
-                    <Button type='primary' size='large' ghost>
+                    <Paragraph className='mb-6 max-w-xl text-lg text-white drop-shadow'>{banner.description}</Paragraph>
+                    <Button
+                        type='primary'
+                        size='large'
+                        ghost
+                        onClick={() => {
+                            void navigate('/product'); // hoặc đường dẫn bạn muốn chuyển đến
+                        }}
+                    >
                         Xem ngay
                     </Button>
                 </div>
             </div>
+        );
+    };
+
+    // BookCard Component
+    const BookCard: React.FC<{ book: Book }> = ({ book }) => {
+        const { title, price, coverImage, discountPrice } = book;
+
+        return (
+            <Card
+                hoverable
+                onClick={() => {
+                    void navigate(`/product/${book.id}`);
+                }}
+                className='book-card'
+                cover={
+                    <div className='h-[300px] overflow-hidden'>
+                        <img alt={title} src={coverImage} className='h-full w-full object-cover' />
+                    </div>
+                }
+                styles={{ body: { padding: 20 } }}
+            >
+                <Card.Meta
+                    title={title}
+                    description={
+                        <div>
+                            {discountPrice ? (
+                                <>
+                                    <span className='price-tag'>{discountPrice.toLocaleString('vi-VN')}đ</span>
+                                    <span className='ml-2 text-gray-400 line-through'>
+                                        {price.toLocaleString('vi-VN')}đ
+                                    </span>
+                                </>
+                            ) : (
+                                <span className='price-tag'>{price.toLocaleString('vi-VN')}đ</span>
+                            )}
+                        </div>
+                    }
+                />
+            </Card>
+        );
+    };
+
+    // BookGrid Component
+    const BookGrid: React.FC<{ title: string; books: Book[] }> = ({ title, books }) => {
+        return (
+            <div className='mb-12'>
+                <div className='mb-6 flex items-center justify-between'>
+                    <Title level={3} className='m-0'>
+                        {title}
+                    </Title>
+                    <Button
+                        type='link'
+                        className='text-primary'
+                        onClick={() => {
+                            void navigate('/products'); // sửa đường dẫn nếu cần
+                        }}
+                    >
+                        Xem tất cả
+                    </Button>
+                </div>
+                <Row gutter={[16, 16]}>
+                    {books.map((book) => (
+                        <Col key={book.id} xs={12} sm={8} md={6}>
+                            <BookCard book={book} />
+                        </Col>
+                    ))}
+                </Row>
+            </div>
+        );
+    };
+
+    return (
+        <div className='animate-fadeIn mx-auto max-w-7xl px-4 py-6'>
+            <Banner />
 
             <BookGrid title='SÁCH MỚI NHẤT' books={newReleases} />
 
-            <div
-                style={{
-                    background: '#fff1f0',
-                    borderRadius: 8,
-                    padding: 32,
-                    textAlign: 'center',
-                    marginBottom: 48,
-                }}
-            >
-                <Title level={2} style={{ color: '#ff4d4f', marginBottom: 16 }}>
+            <div className='mb-12 rounded-xl bg-red-50 p-8 text-center'>
+                <Title level={2} className='text-primary mb-4'>
                     Ưu đãi đặc biệt
                 </Title>
-                <Paragraph style={{ fontSize: 16, marginBottom: 24 }}>
-                    Giảm giá lên đến 30% cho tất cả sách mới trong tháng
-                </Paragraph>
-                <Button type='primary' size='large' danger>
+                <Paragraph className='mb-6 text-lg'>Giảm giá lên đến 30% cho tất cả sách mới trong tháng</Paragraph>
+                <Button
+                    type='primary'
+                    size='large'
+                    danger
+                    onClick={() => {
+                        void navigate('/discounts'); // thay bằng đường dẫn phù hợp
+                    }}
+                >
                     Xem ngay
                 </Button>
             </div>
 
             <BookGrid title='BÁN CHẠY NHẤT' books={bestSellers} />
 
-            <div
-                style={{
-                    background: '#e6f7ff',
-                    borderRadius: 8,
-                    padding: 32,
-                    marginBottom: 48,
-                }}
-            >
-                <Space align='center' style={{ width: '100%', justifyContent: 'space-between' }}>
+            <div className='mb-12 rounded-xl bg-blue-50 p-8'>
+                <Space align='center' className='w-full justify-between'>
                     <div>
-                        <Title level={2} style={{ color: '#1890ff', marginBottom: 16 }}>
+                        <Title level={2} className='mb-4 text-blue-500'>
                             Giao Hàng Miễn Phí
                         </Title>
-                        <Paragraph style={{ fontSize: 16, marginBottom: 0 }}>
+                        <Paragraph className='mb-0 text-lg'>
                             Cho tất cả đơn hàng trên 150.000đ khi mua sách tại ApoBook
                         </Paragraph>
                     </div>
-                    <Button type='primary' size='large'>
+                    <Button
+                        type='primary'
+                        size='large'
+                        onClick={() => {
+                            void navigate('/shipping-info'); // thay bằng link phù hợp
+                        }}
+                    >
                         Tìm hiểu thêm
                     </Button>
                 </Space>
