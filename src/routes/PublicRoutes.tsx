@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import Layout from '../layouts/Layout';
-import HomePage from '../pages/HomePage';
+import HomePage from '../pages/home/HomePage';
 import ProductDetail from '../pages/ProductDetail';
 import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';

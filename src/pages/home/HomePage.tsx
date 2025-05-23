@@ -1,40 +1,14 @@
 import React from 'react';
 import { Typography, Button, Space, Card, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { banners, newReleases, bestSellers, recommendedBooks } from '../data/mock-data';
-import { Book } from '../types';
+import { banners, newReleases, bestSellers, recommendedBooks } from '../../data/mock-data';
+import { Book } from '../../types';
+import Banner from './components/Banner';
 
 const { Title, Paragraph } = Typography;
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
-
-    const Banner: React.FC = () => {
-        const banner = banners[0];
-
-        return (
-            <div className='relative mb-12 h-[400px] overflow-hidden rounded-xl shadow-lg md:h-[500px]'>
-                <img src={banner.image} alt={banner.title} className='absolute inset-0 h-full w-full object-cover' />
-                <div className='absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent' />
-                <div className='relative z-10 flex h-full flex-col justify-center px-6 text-white md:px-16'>
-                    <Title level={1} className='mb-4 text-white drop-shadow-lg'>
-                        {banner.title}
-                    </Title>
-                    <Paragraph className='mb-6 max-w-xl text-lg text-white drop-shadow'>{banner.description}</Paragraph>
-                    <Button
-                        type='primary'
-                        size='large'
-                        ghost
-                        onClick={() => {
-                            void navigate('/product'); // hoặc đường dẫn bạn muốn chuyển đến
-                        }}
-                    >
-                        Xem ngay
-                    </Button>
-                </div>
-            </div>
-        );
-    };
 
     // BookCard Component
     const BookCard: React.FC<{ book: Book }> = ({ book }) => {
