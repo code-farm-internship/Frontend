@@ -1,5 +1,6 @@
 import { Form, Input, Button, Checkbox, message, FormProps } from 'antd';
 import { Link } from 'react-router-dom';
+import { GoogleOutlined } from '@ant-design/icons';
 
 interface LoginFormValues {
     email: string;
@@ -17,19 +18,31 @@ export default function LoginForm() {
         console.log('Failed:', errorInfo);
         message.error('Vui lòng kiểm tra lại thông tin đăng nhập.');
     };
-
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-[url('https://i.pinimg.com/originals/a8/9a/87/a89a87cd8e488110798dce4edb14706a.jpg')] bg-cover bg-center bg-no-repeat px-4">
-            <h1 className='mb-6 text-center text-3xl font-bold uppercase tracking-wide text-blue-600 md:text-4xl'>
-                Chào mừng bạn đến với Aya Book
-            </h1>
+        <div className="flex min-h-screen items-center justify-center bg-[url('https://images.unsplash.com/photo-1512820790803-83ca734da794')] bg-cover bg-center px-4">
+            <div className='w-full max-w-md rounded-xl bg-white/80 p-8 shadow-2xl backdrop-blur-md'>
+                <h1 className='mb-6 text-center text-3xl font-bold tracking-wide text-gray-900'>Aya Book</h1>
 
-            <main className='relative w-full max-w-md rounded-xl bg-white/60 p-8 shadow-md backdrop-blur-md'>
-                <button className='absolute right-4 top-4 h-8 w-8 rounded bg-cyan-300 text-center text-2xl leading-7 text-black hover:bg-red-400'>
-                    ×
-                </button>
+                <h2 className='mb-6 text-center text-xl font-semibold text-gray-700'>Đăng nhập tài khoản</h2>
 
-                <h2 className='mb-6 text-center text-xl font-bold text-cyan-400'>Đăng nhập</h2>
+                <div className='mb-6 flex flex-col gap-3'>
+                    <Button
+                        icon={<GoogleOutlined />}
+                        className='flex w-full items-center justify-center rounded-md border border-[#DADCE0] text-base font-medium text-[#ea4335] hover:border-[#DADCE0]'
+                        style={{
+                            height: '48px',
+                            backgroundColor: '#fff',
+                        }}
+                    >
+                        Login with Google
+                    </Button>
+                </div>
+
+                <div className='my-6 flex items-center'>
+                    <div className='flex-grow border-t-2 border-gray-900'></div>
+                    <span className='mx-4 text-base font-medium text-gray-500'>or</span>
+                    <div className='flex-grow border-t-2 border-gray-900'></div>
+                </div>
 
                 <Form<LoginFormValues>
                     name='login'
@@ -39,24 +52,29 @@ export default function LoginForm() {
                 >
                     <Form.Item
                         name='email'
+                        label='Email'
                         rules={[
                             { required: true, message: 'Vui lòng nhập email!' },
                             { type: 'email', message: 'Email không hợp lệ!' },
                         ]}
                     >
-                        <Input placeholder='Email' prefix='📧' />
+                        <Input placeholder='Email' size='large' />
                     </Form.Item>
 
-                    <Form.Item name='password' rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}>
-                        <Input.Password placeholder='Mật khẩu' prefix='🔒' />
+                    <Form.Item
+                        name='password'
+                        label='Mật khẩu'
+                        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+                    >
+                        <Input.Password placeholder='Mật khẩu' size='large' />
                     </Form.Item>
 
-                    <div className='mb-3 flex justify-between text-sm text-cyan-500'>
+                    <div className='mb-4 flex items-center justify-between text-sm text-gray-600'>
                         <Form.Item name='remember' valuePropName='checked' noStyle>
                             <Checkbox>Nhớ mật khẩu</Checkbox>
                         </Form.Item>
-                        <a href='#' className='hover:underline'>
-                            Quên mật khẩu
+                        <a href='#' className='text-blue-500 hover:underline'>
+                            Quên mật khẩu?
                         </a>
                     </div>
 
@@ -64,22 +82,23 @@ export default function LoginForm() {
                         <Button
                             type='primary'
                             htmlType='submit'
-                            className='w-full bg-gradient-to-b from-cyan-300 to-blue-300 font-bold text-black hover:opacity-90'
+                            size='large'
+                            className='w-full bg-blue-500 font-semibold text-white hover:bg-blue-600'
                         >
                             Đăng nhập
                         </Button>
                     </Form.Item>
-
-                    <div className='text-center text-sm text-cyan-600'>
-                        <span className='mr-2'>Sẵn sàng tạo tài khoản?</span>
-                        <Link to='/register'>
-                            <Button size='small' className='bg-gray-300 text-gray-800 hover:bg-gray-400'>
-                                Đăng ký ngay
-                            </Button>
-                        </Link>
-                    </div>
                 </Form>
-            </main>
+
+                <div className='text-center text-sm text-gray-700'>
+                    <span>Bạn chưa có tài khoản? </span>
+                    <Link to='/register'>
+                        <Button size='small' className='ml-1 bg-gray-200 text-gray-800 hover:bg-gray-300'>
+                            Đăng ký ngay
+                        </Button>
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 }

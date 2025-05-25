@@ -1,92 +1,119 @@
-import { Form, Input, Checkbox, Button, message, FormProps } from 'antd';
+import { Form, Input, Button, Checkbox, message, FormProps } from 'antd';
 import { Link } from 'react-router-dom';
+import { GoogleOutlined } from '@ant-design/icons';
 
 interface RegisterFormValues {
+    name: string;
     email: string;
     password: string;
-    name: string;
-    agreement: boolean;
+    confirmPassword: string;
+    agreeToTerms?: boolean;
 }
 
-export default function RegisterForm() {
+export default function LoginPage() {
     const onFinish: FormProps<RegisterFormValues>['onFinish'] = (values) => {
-        console.log('Success:', values);
+        console.log('Register Success:', values);
         message.success('Đăng ký thành công!');
     };
 
     const onFinishFailed: FormProps<RegisterFormValues>['onFinishFailed'] = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-        message.error('Vui lòng kiểm tra lại thông tin!');
+        console.log('Register Failed:', errorInfo);
+        message.error('Vui lòng kiểm tra lại thông tin đăng ký.');
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[url('https://i.pinimg.com/originals/a8/9a/87/a89a87cd8e488110798dce4edb14706a.jpg')] bg-cover bg-center bg-no-repeat px-4">
-            <main className='relative w-full max-w-md rounded-xl bg-white/60 p-8 shadow-md backdrop-blur-md'>
-                <button className='absolute right-4 top-4 h-8 w-8 rounded bg-cyan-300 text-center text-2xl leading-7 text-black hover:bg-red-400'>
-                    ×
-                </button>
+        <div className="flex min-h-screen items-center justify-center bg-[url('https://image.shutterstock.com/image-photo/cozy-home-library-interior-collection-260nw-2096092468.jpg')] bg-cover bg-center px-4">
+            <div className='w-full max-w-md rounded-xl bg-white/80 p-8 shadow-2xl backdrop-blur-md'>
+                <h1 className='mb-6 text-center text-3xl font-bold tracking-wide text-gray-900'>Aya Book</h1>
 
-                <h2 className='mb-6 text-center text-xl font-bold text-cyan-400'>Đăng ký</h2>
+                <h2 className='mb-6 text-center text-xl font-semibold text-gray-700'>Đăng ký tài khoản</h2>
+
+                <div className='mb-6 flex flex-col gap-3'>
+                    <Button
+                        icon={<GoogleOutlined />}
+                        className='flex w-full items-center justify-center rounded-md border border-[#DADCE0] text-base font-medium text-[#ea4335] hover:border-[#DADCE0]'
+                        style={{
+                            height: '48px',
+                            backgroundColor: '#fff',
+                        }}
+                    >
+                        Login with Google
+                    </Button>
+                </div>
+
+                <div className='my-6 flex items-center'>
+                    <div className='flex-grow border-t-2 border-gray-900'></div>
+                    <span className='mx-4 text-base font-medium text-gray-500'>or</span>
+                    <div className='flex-grow border-t-2 border-gray-900'></div>
+                </div>
 
                 <Form<RegisterFormValues>
-                    layout='vertical'
                     name='register'
+                    layout='vertical'
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                 >
                     <Form.Item
                         name='email'
+                        label='Email'
                         rules={[
                             { required: true, message: 'Vui lòng nhập email!' },
                             { type: 'email', message: 'Email không hợp lệ!' },
                         ]}
                     >
-                        <Input placeholder='Email' prefix='📧' />
-                    </Form.Item>
-
-                    <Form.Item name='password' rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}>
-                        <Input.Password placeholder='Mật khẩu' prefix='🔒' />
-                    </Form.Item>
-
-                    <Form.Item name='name' rules={[{ required: true, message: 'Vui lòng nhập tên!' }]}>
-                        <Input placeholder='Tên của bạn' prefix='👤' />
+                        <Input placeholder='Email' size='large' />
                     </Form.Item>
 
                     <Form.Item
-                        name='agreement'
+                        name='password'
+                        label='Mật khẩu'
+                        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+                        hasFeedback
+                    >
+                        <Input.Password placeholder='Mật khẩu' size='large' />
+                    </Form.Item>
+
+                    <Form.Item
+                        name='agreeToTerms'
                         valuePropName='checked'
                         rules={[
                             {
                                 validator: (_, value) =>
                                     value
                                         ? Promise.resolve()
-                                        : Promise.reject(new Error('Bạn cần đồng ý với điều khoản')),
+                                        : Promise.reject(new Error('Bạn phải đồng ý điều khoản!')),
                             },
                         ]}
                     >
-                        <Checkbox className='text-cyan-600'>Tôi đồng ý với các điều khoản</Checkbox>
+                        <Checkbox>
+                            Tôi đồng ý với{' '}
+                            <a href='#' className='text-blue-500 hover:underline'>
+                                Điều khoản dịch vụ
+                            </a>
+                        </Checkbox>
                     </Form.Item>
 
                     <Form.Item>
                         <Button
                             type='primary'
                             htmlType='submit'
-                            className='w-full bg-gradient-to-b from-cyan-300 to-blue-300 font-bold text-black hover:opacity-90'
+                            size='large'
+                            className='w-full bg-blue-500 font-semibold text-white hover:bg-blue-600'
                         >
                             Đăng ký
                         </Button>
                     </Form.Item>
-
-                    <div className='text-center text-sm text-cyan-600'>
-                        <span className='mr-2'>Sẵn sàng tạo tài khoản?</span>
-                        <Link to='/login'>
-                            <Button size='small' className='bg-gray-300 text-gray-800 hover:bg-gray-400'>
-                                Đăng nhập ngay
-                            </Button>
-                        </Link>
-                    </div>
                 </Form>
-            </main>
+
+                <div className='text-center text-sm text-gray-700'>
+                    <span>Đã có tài khoản? </span>
+                    <Link to='/login'>
+                        <Button size='small' className='ml-1 bg-gray-200 text-gray-800 hover:bg-gray-300'>
+                            Đăng nhập
+                        </Button>
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 }
