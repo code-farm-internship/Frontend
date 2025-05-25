@@ -12,8 +12,22 @@ export const banners: Banner[] = [
         id: '1',
         title: 'Tôi, một góc trời',
         description: 'Khám phá những câu chuyện đầy cảm xúc và ý nghĩa trong tuyển tập mới nhất',
-        image: 'https://images.pexels.com/photos/3747516/pexels-photo-3747516.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        image: 'https://images.pexels.com/photos/3747516/pexels-photo-3747516.jpeg',
         link: '/featured/1',
+    },
+    {
+        id: '2',
+        title: 'Học để trưởng thành',
+        description: 'Một hành trình qua những hương thơm ngọt ngào và rực rỡ',
+        image: 'https://thuviensachco.com/wp-content/uploads/2024/06/banner.jpg',
+        link: '/featured/2',
+    },
+    {
+        id: '3',
+        title: 'Vượt sóng gió',
+        description: 'Câu chuyện của những con người không ngừng vươn lên',
+        image: 'https://www.vietnambooking.com/wp-content/uploads/2017/03/tin-tuc-thu-vien-lon-nhat-the-gioi-10-3-2017.jpg',
+        link: '/featured/3',
     },
 ];
 
