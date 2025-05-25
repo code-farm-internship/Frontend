@@ -4,6 +4,8 @@ import HomePage from '../pages/home/HomePage';
 import ProductDetail from '../pages/ProductDetail';
 import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
+import LoginForm from '../components/auth/loginForm.tsx';
+import RegisterForm from '../components/auth/registerForm.tsx';
 
 export const publicRoutes = [
     {
@@ -15,25 +17,33 @@ export const publicRoutes = [
                 element: <HomePage />,
             },
             {
-                path: '/product/:id',
+                path: 'product/:id',
                 element: <ProductDetail />,
             },
             {
-                path: '/cart',
+                path: 'cart',
                 element: <Cart />,
             },
             {
-                path: '/checkout',
+                path: 'checkout',
                 element: <Checkout />,
             },
             {
                 path: '404',
-                element: <div>Not found</div>,
+                element: <div>Không tìm thấy trang</div>,
             },
             {
                 path: '*',
-                element: <Navigate to={'/404'} />,
+                element: <Navigate to='/404' />,
             },
         ],
+    },
+    {
+        path: '/login',
+        element: <LoginForm />,
+    },
+    {
+        path: '/register',
+        element: <RegisterForm />,
     },
 ];
