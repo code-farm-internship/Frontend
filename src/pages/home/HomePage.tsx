@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Button, Space, Card, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { banners, newReleases, bestSellers, recommendedBooks } from '../../data/mock-data';
+import { newReleases, bestSellers, recommendedBooks } from '../../data/mock-data';
 import { Book } from '../../types';
 import Banner from './components/Banner';
 

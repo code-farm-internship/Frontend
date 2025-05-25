@@ -2,7 +2,7 @@ import { Book, Category, Banner, NavItem } from '../types';
 
 export const navItems: NavItem[] = [
     { label: 'Trang Chủ', href: '/' },
-    { label: 'Giới thiệu', href: '/about' },
+    { label: 'Giới thiệu', href: '/bookintro' },
     { label: 'Liên hệ với chúng tôi', href: '/contact' },
     { label: 'Cửa hàng sách', href: '/shop' },
 ];

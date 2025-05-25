@@ -6,6 +6,7 @@ import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
 import LoginForm from '../components/auth/loginForm.tsx';
 import RegisterForm from '../components/auth/registerForm.tsx';
+import BookIntro from '../pages/BookIntro.tsx';
 
 export const publicRoutes = [
     {
@@ -27,6 +28,10 @@ export const publicRoutes = [
             {
                 path: 'checkout',
                 element: <Checkout />,
+            },
+            {
+                path: 'bookintro',
+                element: <BookIntro />,
             },
             {
                 path: '404',

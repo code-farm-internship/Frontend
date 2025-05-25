@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, Input, Badge, Button, Drawer } from 'antd';
 import { UserOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/icons';
 import { navItems } from '../../data/mock-data';
+import { Link } from 'react-router-dom';
 
 const { Header: AntHeader } = Layout;
 const { Search } = Input;
@@ -22,13 +23,15 @@ const Header: React.FC = () => {
                 }}
             >
                 <div className='logo' style={{ marginRight: 24 }}>
-                    <h1 style={{ margin: 0, fontSize: 24, color: '#ff4d4f' }}>ApoBook</h1>
+                    <h1 style={{ margin: 0, fontSize: 24, color: '#ff4d4f' }}>AyaBook</h1>
                 </div>
 
                 <div className='desktop-menu' style={{ flex: 1, display: 'flex', justifyContent: 'space-between' }}>
                     <Menu mode='horizontal' style={{ border: 'none', flex: 1 }}>
                         {navItems.map((item) => (
-                            <Menu.Item key={item.href}>{item.label}</Menu.Item>
+                            <Menu.Item key={item.href}>
+                                <Link to={item.href}>{item.label}</Link>
+                            </Menu.Item>
                         ))}
                     </Menu>
                 </div>
