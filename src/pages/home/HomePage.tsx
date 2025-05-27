@@ -1,82 +1,14 @@
 import React from 'react';
-import { Typography, Button, Space, Card, Row, Col } from 'antd';
+import { Typography, Button, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { banners, newReleases, bestSellers, recommendedBooks } from '../../data/mock-data';
-import { Book } from '../../types';
+import { newReleases, bestSellers, recommendedBooks } from '../../data/mock-data';
 import Banner from './components/Banner';
+import BookGrid from './components/BookGrid';
 
 const { Title, Paragraph } = Typography;
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
-
-    // BookCard Component
-    const BookCard: React.FC<{ book: Book }> = ({ book }) => {
-        const { title, price, coverImage, discountPrice } = book;
-
-        return (
-            <Card
-                hoverable
-                onClick={() => {
-                    void navigate(`/product/${book.id}`);
-                }}
-                className='book-card'
-                cover={
-                    <div className='h-[300px] overflow-hidden'>
-                        <img alt={title} src={coverImage} className='h-full w-full object-cover' />
-                    </div>
-                }
-                styles={{ body: { padding: 20 } }}
-            >
-                <Card.Meta
-                    title={title}
-                    description={
-                        <div>
-                            {discountPrice ? (
-                                <>
-                                    <span className='price-tag'>{discountPrice.toLocaleString('vi-VN')}đ</span>
-                                    <span className='ml-2 text-gray-400 line-through'>
-                                        {price.toLocaleString('vi-VN')}đ
-                                    </span>
-                                </>
-                            ) : (
-                                <span className='price-tag'>{price.toLocaleString('vi-VN')}đ</span>
-                            )}
-                        </div>
-                    }
-                />
-            </Card>
-        );
-    };
-
-    // BookGrid Component
-    const BookGrid: React.FC<{ title: string; books: Book[] }> = ({ title, books }) => {
-        return (
-            <div className='mb-12'>
-                <div className='mb-6 flex items-center justify-between'>
-                    <Title level={3} className='m-0'>
-                        {title}
-                    </Title>
-                    <Button
-                        type='link'
-                        className='text-primary'
-                        onClick={() => {
-                            void navigate('/products'); // sửa đường dẫn nếu cần
-                        }}
-                    >
-                        Xem tất cả
-                    </Button>
-                </div>
-                <Row gutter={[16, 16]}>
-                    {books.map((book) => (
-                        <Col key={book.id} xs={12} sm={8} md={6}>
-                            <BookCard book={book} />
-                        </Col>
-                    ))}
-                </Row>
-            </div>
-        );
-    };
 
     return (
         <div className='animate-fadeIn mx-auto max-w-7xl px-4 py-6'>

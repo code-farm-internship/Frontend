@@ -44,6 +44,9 @@ export default tseslint.config({
     rules: {
         // React plugin rules
         ...reactPlugin.configs.recommended.rules,
+
+        'react/prop-types': 'off',
+
         'react/jsx-uses-react': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-key': 'error',

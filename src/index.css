@@ -1,3 +1,150 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --primary-color: #ff4d4f;
+    --secondary-color: #001529;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Enhanced card hover effects */
+.book-card {
+    transition: all 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.book-card img {
+    transition: transform 0.5s ease;
+}
+
+.book-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Custom button styles */
+.btn-primary {
+    @apply rounded-lg bg-red-500 px-4 py-2 font-semibold text-white transition-all duration-300 hover:bg-red-600;
+}
+
+.btn-outline {
+    @apply rounded-lg border-2 border-red-500 px-4 py-2 font-semibold text-red-500 transition-all duration-300 hover:bg-red-500 hover:text-white;
+}
+
+/* Enhanced typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-bold tracking-tight;
+}
+
+/* Custom price tag style */
+.price-tag {
+    @apply text-lg font-bold text-red-500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced banner styles */
+.banner-container {
+    @apply relative overflow-hidden rounded-xl shadow-lg;
+    height: 400px;
+}
+
+@media (max-width: 768px) {
+    .banner-container {
+        height: 300px;
+    }
+}
+
+.banner-overlay {
+    @apply absolute inset-0 bg-gradient-to-r from-red-500/80 to-transparent;
+}
+
+.banner-content {
+    @apply absolute inset-0 flex flex-col justify-center px-8 md:px-16;
+    max-width: 600px;
+}
+
+/* Cart and checkout enhancements */
+.cart-item {
+    @apply rounded-lg bg-white p-4 shadow-sm transition-all duration-300;
+}
+
+.cart-item:hover {
+    @apply shadow-md;
+}
+
+/* Form field enhancements */
+.form-input {
+    @apply rounded-lg border-gray-300 transition-all duration-300 focus:border-red-500 focus:ring focus:ring-red-200;
+}
+
+/* Responsive grid adjustments */
+.book-grid {
+    @apply grid gap-4 sm:gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+@screen sm {
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}
+
+@screen md {
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+@screen lg {
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Enhanced mobile navigation */
+.mobile-nav-link {
+    @apply block w-full px-4 py-3 text-gray-600 transition-all duration-300 hover:bg-red-50 hover:text-red-500;
+}
+
+/* Improved container padding for mobile */
+.container-padding {
+    @apply px-4 sm:px-6 md:px-8;
+}
+
+/* Better spacing for mobile devices */
+.section-spacing {
+    @apply my-8 md:my-12 lg:my-16;
+}
+
+/* Enhanced mobile menu transition */
+.mobile-menu {
+    @apply transition-all duration-300 ease-in-out;
+}
