@@ -1,15 +1,15 @@
-import axios from 'axios';
-import { envVars } from '../../config/env.config';
+import { envVars } from '@/config/env.config';
+import axios, { AxiosResponse } from 'axios';
 
 const axiosOptions = {
-    url: envVars.API_URL,
+    baseURL: envVars.API_URL,
     timeout: 20000,
     withCredentials: true,
 };
 
 export const instance = axios.create(axiosOptions);
 
-axios.interceptors.request.use(
+instance.interceptors.request.use(
     (config) => {
         return config;
     },
@@ -18,9 +18,9 @@ axios.interceptors.request.use(
     },
 );
 
-axios.interceptors.response.use(
-    (response) => {
-        return response;
+instance.interceptors.response.use(
+    <T>(response: AxiosResponse<T>) => {
+        return response.data;
     },
     (error) => {
         return Promise.reject(error as Error);

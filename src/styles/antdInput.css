@@ -1,0 +1,4 @@
+.center-quantity-input .ant-input-number-input {
+    text-align: center;
+    user-select: none;
+}

@@ -1,16 +1,16 @@
 import { Navigate } from 'react-router-dom';
-import Layout from '../layouts/Layout';
-import HomePage from '../pages/home/HomePage';
-import ProductDetail from '../pages/ProductDetail';
-import Cart from '../pages/Cart';
-import Checkout from '../pages/Checkout';
-import LoginForm from '../components/auth/loginForm.tsx';
-import RegisterForm from '../components/auth/registerForm.tsx';
+import HomePage from '@/pages/home/HomePage';
+import ProductDetail from '@/pages/ProductDetail/ProductDetail';
+import Cart from '@/pages/Cart';
+import Checkout from '@/pages/Checkout';
+import MainLayout from '@/layouts/MainLayout';
+import LoginForm from '@/components/auth/loginForm';
+import RegisterForm from '@/components/auth/registerForm';
 
 export const publicRoutes = [
     {
         path: '/',
-        element: <Layout />,
+        element: <MainLayout />,
         children: [
             {
                 index: true,
@@ -29,21 +29,22 @@ export const publicRoutes = [
                 element: <Checkout />,
             },
             {
-                path: '404',
-                element: <div>Không tìm thấy trang</div>,
+                path: '/login',
+                element: <LoginForm />,
             },
             {
-                path: '*',
-                element: <Navigate to='/404' />,
+                path: '/register',
+                element: <RegisterForm />,
             },
         ],
     },
+
     {
-        path: '/login',
-        element: <LoginForm />,
+        path: '404',
+        element: <div>Not found</div>,
     },
     {
-        path: '/register',
-        element: <RegisterForm />,
+        path: '*',
+        element: <Navigate to={'/404'} />,
     },
 ];

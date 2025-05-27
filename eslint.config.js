@@ -66,6 +66,7 @@ export default tseslint.config({
                 caughtErrorsIgnorePattern: '^_',
             },
         ],
+        '@typescript-eslint/no-floating-promises': ['error', { ignoreVoid: true }],
 
         // Prettier rules
         'prettier/prettier': [
