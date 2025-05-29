@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperClass } from 'swiper/types';
 import { A11y, Navigation } from 'swiper/modules';
+import clsx from 'clsx';
 
 type LibraryProps = {
     productDetail: IProductResponse;
@@ -24,23 +25,21 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
     const nextSlide = useCallback(() => {
         if (!swiperRef.current || (!isSwiperHorizontalReady && !isSwiperVerticalReady)) return;
         swiperRef.current.slideNext();
-        if (isSwiperVerticalReady) {
-            setIndexImage(swiperRef.current.realIndex);
-        }
     }, [swiperRef, isSwiperHorizontalReady, isSwiperVerticalReady]);
 
     const prevSlide = useCallback(() => {
         if (!swiperRef.current || (!isSwiperHorizontalReady && !isSwiperVerticalReady)) return;
         swiperRef.current.slidePrev();
-        if (isSwiperVerticalReady) {
-            setIndexImage(swiperRef.current.realIndex);
-        }
     }, [swiperRef, isSwiperHorizontalReady, isSwiperVerticalReady]);
+
+    const handleSlideChange = useCallback((swiper: SwiperClass) => {
+        setIndexImage(swiper.realIndex);
+    }, []);
 
     return (
         <>
-            <div className='flex w-full flex-wrap gap-8 md:flex-nowrap'>
-                <div className={`relative ${windowWidth < 768 ? 'h-60 w-full' : 'h-full max-h-[500px] w-1/3'}`}>
+            <div className='flex w-full flex-wrap gap-8 overflow-hidden md:flex-nowrap'>
+                <div className={`relative ${windowWidth < 768 ? 'h-60 w-full' : 'max-h-library h-full w-32'}`}>
                     {windowWidth < 768 && (
                         <Swiper
                             modules={[Navigation, A11y]}
@@ -55,18 +54,23 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                                 swiperRef.current = swiper;
                                 setIsSwiperHorizontalReady(true);
                             }}
-                            loop
+                            onSlideChange={handleSlideChange}
+                            loop={productDetail.library.length > 3}
                             className='h-full'
                         >
                             {productDetail.library.map((image, index) => (
                                 <SwiperSlide
                                     key={index}
-                                    className='max-h-64 w-full cursor-pointer px-8 sm:max-h-80 sm:px-20'
+                                    className={`${clsx({ 'border border-black/70': index === indexImage })} w-full cursor-pointer px-8 sm:max-h-80 sm:px-20`}
                                     onClick={() => {
                                         setIndexImage(index);
                                     }}
                                 >
-                                    <img src={image.imageUrl} className='h-full w-full object-cover' alt='product' />
+                                    <Image
+                                        src={image.imageUrl}
+                                        className='h-full w-full object-contain'
+                                        alt='product'
+                                    />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -76,7 +80,7 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                             modules={[Navigation, A11y]}
                             direction={'vertical'}
                             spaceBetween={8}
-                            slidesPerView={3}
+                            slidesPerView={4}
                             navigation={false}
                             onSwiper={(swiper) => {
                                 swiperRef.current = swiper;
@@ -85,13 +89,14 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                             onDestroy={() => {
                                 setIsSwiperVerticalReady(false);
                             }}
-                            loop
+                            onSlideChange={handleSlideChange}
+                            loop={productDetail.library.length > 3}
                             className='h-full'
                         >
                             {productDetail.library.map((image, index) => (
                                 <SwiperSlide
                                     key={index}
-                                    className='w-full cursor-pointer'
+                                    className={`${clsx({ 'border border-black/70 p-0.5': index === indexImage })} w-full cursor-pointer`}
                                     onClick={() => {
                                         setIndexImage(index);
                                     }}
@@ -105,13 +110,13 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                         <>
                             <div
                                 onClick={prevSlide}
-                                className='absolute left-[calc(50%-0.5rem)] top-1 z-10 -translate-x-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute left-[calc(50%)] top-1 z-10 -translate-x-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <UpOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
                             <div
                                 onClick={nextSlide}
-                                className='absolute bottom-1 left-[calc(50%-0.5rem)] z-10 -translate-x-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute bottom-1 left-[calc(50%)] z-10 -translate-x-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <DownOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
@@ -120,13 +125,13 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                         <>
                             <div
                                 onClick={prevSlide}
-                                className='absolute left-0 top-[calc(50%-0.5rem)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute left-0 top-[calc(50%)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <LeftOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
                             <div
                                 onClick={nextSlide}
-                                className='absolute right-0 top-[calc(50%-0.5rem)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute right-0 top-[calc(50%)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <RightOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
@@ -134,9 +139,9 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                     )}
                 </div>
                 {windowWidth > 768 && (
-                    <div className='flex w-full items-center justify-center'>
+                    <div className='max-h-library max-w-library m-auto flex w-full items-center justify-center overflow-hidden md:m-0'>
                         <Image
-                            className='h-full w-full object-cover'
+                            className='max-h-full max-w-full object-contain'
                             src={productDetail.library[indexImage]?.imageUrl}
                         ></Image>
                     </div>

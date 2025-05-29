@@ -1,11 +1,13 @@
+// import useAddToCart from '@/hooks/cart/mutations/useAddToCart';
 import { DiscountType } from '@/types/discount';
 import { IProductResponse, IVariant } from '@/types/product';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Button, InputNumber, Rate } from 'antd';
 import Title from 'antd/es/typography/Title';
-import { clsx } from 'clsx';
-import { useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import VariantItem from './VariantItem';
+import { useParams } from 'react-router-dom';
 
 type ProductDetailProps = {
     productDetail: IProductResponse;
@@ -14,35 +16,43 @@ type ProductDetailProps = {
 const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
     const [chooseVariant, setChooseVariant] = useState<IVariant>();
     const [quantity, setQuantity] = useState(1);
-    const isOutOfStock = productDetail.variants.every((variant) => variant.stock < 0);
+    // const { mutate: addToCart, isPending } = useAddToCart();
+    const { id } = useParams();
 
-    const discountPrice =
-        chooseVariant?.discountId?.discountType === DiscountType.PERCENT
+    const foundedVariant = useMemo(() => productDetail.variants.find((variant) => variant.stock > 0), [productDetail]);
+
+    const discountPrice = useMemo(() => {
+        return chooseVariant?.discountId?.discountType === DiscountType.PERCENT
             ? chooseVariant.price - (chooseVariant.price * chooseVariant.discountId.discountValue) / 100
             : (chooseVariant?.price as number) - (chooseVariant?.discountId?.discountValue as number);
+    }, [chooseVariant]);
 
-    const handleChooseVariant = (variant: IVariant) => {
+    const handleChooseVariant = useCallback((variant: IVariant) => {
         setChooseVariant(variant);
-    };
+    }, []);
 
-    const handleIncreaseQuantity = (quantity: number, stock: number = 1) => {
+    const handleIncreaseQuantity = useCallback((quantity: number, stock: number = 1) => {
         if (quantity < stock) {
             setQuantity((prevQuantity) => prevQuantity + 1);
         }
-    };
+    }, []);
 
-    const handleDecreaseQuantity = (quantity: number) => {
+    const handleDecreaseQuantity = useCallback((quantity: number) => {
         if (quantity > 1) {
             setQuantity((prevQuantity) => prevQuantity - 1);
         }
-    };
+    }, []);
+
+    // const handleAddToCart = useCallback((chooseVariant: IVariant, quantity: number, productId: string) => {
+    //     addToCart({ variantId: chooseVariant._id, productId, quantity });
+    // }, []);
 
     useEffect(() => {
-        const foundedVariant = productDetail.variants.find((variant) => variant.stock > 0);
         if (foundedVariant) {
             setChooseVariant(foundedVariant);
         }
-    }, [productDetail.variants]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className='w-full space-y-6'>
@@ -82,21 +92,12 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
                 </div>
                 <div className='grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-5'>
                     {productDetail.variants.map((variant) => (
-                        <div
+                        <VariantItem
                             key={variant._id}
-                            className={`${clsx({
-                                'border-black/60': variant._id === chooseVariant?._id,
-                                'pointer-events-none opacity-50': variant.stock === 0,
-                            })} relative flex min-w-28 cursor-pointer select-none items-center justify-center gap-2 border-2 border-black/40 px-2 py-2 duration-200 hover:border-black/60`}
-                            onClick={() => {
-                                if (variant.stock > 0) {
-                                    handleChooseVariant(variant);
-                                }
-                            }}
-                        >
-                            <img src={variant.image} className='w-5' alt='variant product' />
-                            <span className='capitalize'>{variant.formatId.name}</span>
-                        </div>
+                            handleChooseVariant={handleChooseVariant}
+                            variant={variant}
+                            chooseVariant={chooseVariant}
+                        />
                     ))}
                 </div>
             </div>
@@ -117,11 +118,7 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
                         <InputNumber
                             min={1}
                             value={quantity}
-                            onChange={(value) => {
-                                if (value && value < (chooseVariant?.stock as number)) {
-                                    setQuantity(value || 1);
-                                }
-                            }}
+                            controls={false}
                             max={chooseVariant?.stock || 1}
                             className='center-quantity-input ml-2 w-32 font-medium'
                         />
@@ -135,15 +132,21 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
                 </div>
             </div>
             <div>
-                <Button
+                {/* <Button
                     type='primary'
-                    disabled={isOutOfStock}
+                    disabled={!foundedVariant || isPending}
+                    loading={isPending}
+                    onClick={() => {
+                        if (chooseVariant && id) {
+                            handleAddToCart(chooseVariant, quantity, id);
+                        }
+                    }}
                     className='mt-4'
                     size='large'
                     icon={<ShoppingCartOutlined />}
                 >
                     Thêm vào giỏ hàng
-                </Button>
+                </Button> */}
             </div>
             {/* <div className='space-y-4'>
                             <div>
@@ -167,4 +170,4 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
     );
 };
 
-export default ProductDetailInfo;
+export default memo(ProductDetailInfo);

@@ -1,20 +1,10 @@
-import useWindowSize from '@/hooks/common/useWindowSize';
 import useGetDetailProduct from '@/hooks/products/queries/useGetDetailProduct';
-import { DiscountType } from '@/types/discount';
-import { IVariant } from '@/types/product';
-import { formatCurrency } from '@/utils/formatCurrency';
-import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { Button, InputNumber, Rate } from 'antd';
-import Title from 'antd/es/typography/Title';
-import { clsx } from 'clsx';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import type { Swiper as SwiperClass } from 'swiper/types';
 import { bestSellers } from '../../data/mock-data';
-import ProductLibrary from './components/ProductLibrary';
 import ProductDetailInfo from './components/ProductDetailInfo';
+import ProductLibrary from './components/ProductLibrary';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -24,7 +14,7 @@ const ProductDetail = () => {
     return (
         <>
             {productDetail ? (
-                <div className='mx-auto w-full px-4 py-8 md:max-w-standard xl:max-w-7xl'>
+                <div className='mx-auto w-full rounded-sm bg-white px-4 py-8 md:max-w-standard xl:max-w-7xl'>
                     <div className='flex flex-wrap justify-between gap-8 lg:flex-nowrap'>
                         <div className='flex w-full basis-full lg:basis-1/2'>
                             <ProductLibrary productDetail={productDetail} />
@@ -61,7 +51,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
             ) : (
-                <div>...Loading</div>
+                <div>Loading...</div>
             )}
         </>
     );
