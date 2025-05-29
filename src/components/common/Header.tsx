@@ -2,9 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, UserOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/icons';
 import { navItems } from '../../data/mock-data';
+import { Badge } from 'antd';
+import CartDrawer from '../CartDrawer/CartDrawer';
+import { useCartStore } from '@/store/cartStore';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const setToggleCart = useCartStore((state) => state.setToggleCart);
+    const cartQuantity = useCartStore((state) => state.cartQuantity);
 
     return (
         <header className='sticky top-0 z-50 bg-white shadow-md'>
@@ -28,7 +33,7 @@ const Header: React.FC = () => {
 
             {/* Main header */}
             <div className='border-b'>
-                <div className='mx-auto max-w-7xl px-4'>
+                <div className='mx-auto w-full max-w-7xl px-8'>
                     <div className='flex h-16 items-center justify-between md:h-20'>
                         {/* Logo */}
                         <Link to='/' className='flex items-center'>
@@ -54,16 +59,16 @@ const Header: React.FC = () => {
                                 <span className='ml-2 hidden lg:inline'>Tài khoản</span>
                             </button>
 
-                            <Link
-                                to='/cart'
-                                className='relative flex items-center p-2 text-gray-600 transition-colors hover:text-red-500'
+                            <div
+                                className='cursor-pointer p-2'
+                                onClick={() => {
+                                    setToggleCart();
+                                }}
                             >
-                                <ShoppingCartOutlined className='text-xl' />
-                                <span className='ml-2 hidden lg:inline'>Giỏ hàng</span>
-                                <span className='absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white'>
-                                    0
-                                </span>
-                            </Link>
+                                <Badge size='small' count={cartQuantity}>
+                                    <ShoppingCartOutlined className='text-2xl' />
+                                </Badge>
+                            </div>
 
                             <button
                                 className='p-2 text-gray-600 transition-colors hover:text-red-500 md:hidden'
@@ -79,7 +84,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Navigation */}
-            <nav className='hidden border-b md:block'>
+            {/* <nav className='hidden border-b md:block'>
                 <div className='mx-auto max-w-7xl px-4'>
                     <div className='flex h-12 items-center justify-between'>
                         <div className='flex items-center space-x-8'>
@@ -106,7 +111,7 @@ const Header: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav> */}
 
             {/* Mobile Menu */}
             {isMenuOpen && (
@@ -184,6 +189,7 @@ const Header: React.FC = () => {
                     </div>
                 </div>
             )}
+            <CartDrawer />
         </header>
     );
 };

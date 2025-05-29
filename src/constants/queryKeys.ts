@@ -1,11 +1,11 @@
 export const QUERY_KEYS = {
-    product: {
-        detail: 'productDetail',
+    PRODUCT: {
+        DETAIL: 'productDetail',
     },
-    cart: {
-        all: 'cartAll',
-        add: 'addToCart',
-        update: 'updateCartItemQuantity',
-        remove: 'removeCartItem',
+    CART: {
+        ALL: 'cartAll',
+        ADD: 'addToCart',
+        UPDATE: 'updateCartItemQuantity',
+        REMOVE: 'removeCartItem',
     },
 };

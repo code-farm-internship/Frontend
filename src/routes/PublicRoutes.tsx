@@ -1,11 +1,11 @@
 import { Navigate } from 'react-router-dom';
 import HomePage from '@/pages/home/HomePage';
-import ProductDetail from '@/pages/ProductDetail/ProductDetail';
 import Cart from '@/pages/Cart';
 import Checkout from '@/pages/Checkout';
 import MainLayout from '@/layouts/MainLayout';
 import LoginForm from '@/components/auth/loginForm';
 import RegisterForm from '@/components/auth/registerForm';
+import { ProductDetail } from './LazyRoutes';
 
 export const publicRoutes = [
     {

@@ -1,4 +1,4 @@
-// import useAddToCart from '@/hooks/cart/mutations/useAddToCart';
+import useAddToCart from '@/hooks/cart/mutations/useAddToCart';
 import { DiscountType } from '@/types/discount';
 import { IProductResponse, IVariant } from '@/types/product';
 import { formatCurrency } from '@/utils/formatCurrency';
@@ -16,7 +16,7 @@ type ProductDetailProps = {
 const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
     const [chooseVariant, setChooseVariant] = useState<IVariant>();
     const [quantity, setQuantity] = useState(1);
-    // const { mutate: addToCart, isPending } = useAddToCart();
+    const { mutate: addToCart, isPending } = useAddToCart();
     const { id } = useParams();
 
     const foundedVariant = useMemo(() => productDetail.variants.find((variant) => variant.stock > 0), [productDetail]);
@@ -43,9 +43,12 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
         }
     }, []);
 
-    // const handleAddToCart = useCallback((chooseVariant: IVariant, quantity: number, productId: string) => {
-    //     addToCart({ variantId: chooseVariant._id, productId, quantity });
-    // }, []);
+    const handleAddToCart = useCallback(
+        (chooseVariant: IVariant, quantity: number, productId: string) => {
+            addToCart({ variantId: chooseVariant._id, productId, quantity });
+        },
+        [addToCart],
+    );
 
     useEffect(() => {
         if (foundedVariant) {
@@ -132,7 +135,7 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
                 </div>
             </div>
             <div>
-                {/* <Button
+                <Button
                     type='primary'
                     disabled={!foundedVariant || isPending}
                     loading={isPending}
@@ -146,7 +149,7 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
                     icon={<ShoppingCartOutlined />}
                 >
                     Thêm vào giỏ hàng
-                </Button> */}
+                </Button>
             </div>
             {/* <div className='space-y-4'>
                             <div>

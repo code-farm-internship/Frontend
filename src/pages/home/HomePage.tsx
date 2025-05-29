@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
             <BookGrid title='SÁCH MỚI NHẤT' books={newReleases} />
 
             <div className='mb-12 rounded-xl bg-red-50 p-8 text-center'>
-                <Title level={2} className='text-primary mb-4'>
+                <Title level={2} className='mb-4 text-primary'>
                     Ưu đãi đặc biệt
                 </Title>
                 <Paragraph className='mb-6 text-lg'>Giảm giá lên đến 30% cho tất cả sách mới trong tháng</Paragraph>
