@@ -1,15 +1,18 @@
+import { useCartStore } from '@/store/cartStore';
+import { useUserStore } from '@/store/userStore';
+import { MenuOutlined, SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Badge } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchOutlined, UserOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/icons';
 import { navItems } from '../../data/mock-data';
-import { Badge } from 'antd';
 import CartDrawer from '../CartDrawer/CartDrawer';
-import { useCartStore } from '@/store/cartStore';
+import HeaderUserToolbar from './HeaderUserToolbar';
 
-const Header: React.FC = () => {
+const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const setToggleCart = useCartStore((state) => state.setToggleCart);
+    const setToggleCart = useCartStore((state) => state.toggleCart);
     const cartQuantity = useCartStore((state) => state.cartQuantity);
+    const isAuthenticate = useUserStore((state) => state.isAuthenticate);
 
     return (
         <header className='sticky top-0 z-50 bg-white shadow-md'>
@@ -54,15 +57,13 @@ const Header: React.FC = () => {
 
                         {/* Actions */}
                         <div className='flex items-center space-x-1 md:space-x-4'>
-                            <button className='hidden items-center p-2 text-gray-600 transition-colors hover:text-red-500 md:flex'>
-                                <UserOutlined className='text-xl' />
-                                <span className='ml-2 hidden lg:inline'>Tài khoản</span>
-                            </button>
-
+                            <HeaderUserToolbar />
                             <div
                                 className='cursor-pointer p-2'
                                 onClick={() => {
-                                    setToggleCart();
+                                    if (isAuthenticate) {
+                                        setToggleCart();
+                                    }
                                 }}
                             >
                                 <Badge size='small' count={cartQuantity}>
