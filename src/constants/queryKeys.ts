@@ -8,4 +8,10 @@ export const QUERY_KEYS = {
         UPDATE: 'updateCartItemQuantity',
         REMOVE: 'removeCartItem',
     },
+    AUTH: {
+        REGISTER: 'register',
+        LOGIN: 'login',
+        VERIFY_EMAIL: 'verify-email',
+        RESEND_VERIFY_EMAIL: 'resend-verify-email',
+    },
 };

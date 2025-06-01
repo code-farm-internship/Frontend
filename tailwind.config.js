@@ -16,13 +16,7 @@ export default {
             maxHeight: {
                 library: '31.25rem',
             },
-            textColor: {
-                primary: '#EF4444',
-            },
-            color: {
-                primary: '#EF4444',
-            },
-            borderColor: {
+            colors: {
                 primary: '#EF4444',
             },
         },

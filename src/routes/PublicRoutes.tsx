@@ -1,11 +1,10 @@
-import { Navigate } from 'react-router-dom';
-import HomePage from '@/pages/home/HomePage';
+import MainLayout from '@/layouts/MainLayout';
 import Cart from '@/pages/Cart';
 import Checkout from '@/pages/Checkout';
-import MainLayout from '@/layouts/MainLayout';
-import LoginForm from '@/components/auth/loginForm';
-import RegisterForm from '@/components/auth/registerForm';
-import { ProductDetail } from './LazyRoutes';
+import HomePage from '@/pages/home/HomePage';
+import { Navigate } from 'react-router-dom';
+import { LoginPage, ProductDetail, RegisterPage, Suspense, VerifyEmailPage } from './LazyRoutes';
+import ProtectedRoute from '@/utils/ProtectedRoute';
 
 export const publicRoutes = [
     {
@@ -14,27 +13,59 @@ export const publicRoutes = [
         children: [
             {
                 index: true,
-                element: <HomePage />,
+                element: (
+                    <Suspense>
+                        <HomePage />
+                    </Suspense>
+                ),
             },
             {
                 path: 'product/:id',
-                element: <ProductDetail />,
+                element: (
+                    <Suspense>
+                        <ProductDetail />
+                    </Suspense>
+                ),
             },
             {
                 path: 'cart',
-                element: <Cart />,
+                element: (
+                    <Suspense>
+                        <Cart />
+                    </Suspense>
+                ),
             },
             {
                 path: 'checkout',
-                element: <Checkout />,
+                element: (
+                    <Suspense>
+                        <Checkout />
+                    </Suspense>
+                ),
             },
             {
-                path: '/login',
-                element: <LoginForm />,
+                path: 'auth/login',
+                element: (
+                    <ProtectedRoute>
+                        <Suspense>
+                            <LoginPage />
+                        </Suspense>
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: '/register',
-                element: <RegisterForm />,
+                path: 'auth/register',
+                element: (
+                    <ProtectedRoute>
+                        <Suspense>
+                            <RegisterPage />
+                        </Suspense>
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: 'auth/verify-email',
+                element: <VerifyEmailPage />,
             },
         ],
     },
@@ -45,6 +76,6 @@ export const publicRoutes = [
     },
     {
         path: '*',
-        element: <Navigate to={'/404'} />,
+        element: <Navigate to={'/404'} replace={false} />,
     },
 ];

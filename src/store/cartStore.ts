@@ -1,37 +1,34 @@
+// store/cart.ts
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { devtools } from 'zustand/middleware';
-import { combine } from 'zustand/middleware';
 import { ICartItems } from '@/types/cart';
 
-interface ICartStore {
+export interface ICartState {
     isOpen: boolean;
-    items: ICartItems[];
     cartQuantity: number;
-    setToggleCart: () => void;
+    items: ICartItems[];
+    toggleCart: () => void;
     setCartQuantity: (quantity: number) => void;
 }
 
-export const useCartStore = create<ICartStore>()(
+export const useCartStore = create<ICartState>()(
     devtools(
-        immer(
-            combine({ isOpen: false, cartQuantity: 0, items: [] as ICartItems[] }, (set) => ({
-                setToggleCart: () => {
-                    set(
-                        (state) => {
-                            state.isOpen = !state.isOpen;
-                        },
-                        false,
-                        { type: 'setToggleCart' },
-                    );
-                },
-                setCartQuantity: (quantity: number) => {
-                    set((state) => {
-                        state.cartQuantity = quantity;
-                    });
-                },
-            })),
-        ),
+        immer((set) => ({
+            isOpen: false,
+            cartQuantity: 0,
+            items: [],
+            toggleCart: () => {
+                set((state) => {
+                    state.isOpen = !state.isOpen;
+                });
+            },
+            setCartQuantity: (quantity) => {
+                set((state) => {
+                    state.cartQuantity = quantity;
+                });
+            },
+        })),
         { name: 'CartStore' },
     ),
 );
