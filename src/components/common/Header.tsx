@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { navItems } from '../../data/mock-data';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import HeaderUserToolbar from './HeaderUserToolbar';
+import { PUBLIC_ROUTES } from '@/constants/routes';
+import clsx from 'clsx';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -59,14 +61,17 @@ const Header = () => {
                         <div className='flex items-center space-x-1 md:space-x-4'>
                             <HeaderUserToolbar />
                             <div
-                                className='cursor-pointer p-2'
+                                className={`${clsx({ 'cursor-pointer': window.location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}` })} p-2`}
                                 onClick={() => {
-                                    if (isAuthenticate) {
+                                    if (
+                                        isAuthenticate &&
+                                        window.location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}`
+                                    ) {
                                         setToggleCart();
                                     }
                                 }}
                             >
-                                <Badge size='small' count={cartQuantity}>
+                                <Badge size='small' className='select-none' count={cartQuantity}>
                                     <ShoppingCartOutlined className='text-2xl' />
                                 </Badge>
                             </div>

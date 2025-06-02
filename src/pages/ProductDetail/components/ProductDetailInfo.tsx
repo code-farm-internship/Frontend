@@ -8,6 +8,7 @@ import Title from 'antd/es/typography/Title';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import VariantItem from './VariantItem';
 import { useParams } from 'react-router-dom';
+import { calculateDiscountPrice } from '@/utils/calculateTotalDiscountPrice';
 
 type ProductDetailProps = {
     productDetail: IProductResponse;
@@ -22,9 +23,7 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
     const foundedVariant = useMemo(() => productDetail.variants.find((variant) => variant.stock > 0), [productDetail]);
 
     const discountPrice = useMemo(() => {
-        return chooseVariant?.discountId?.discountType === DiscountType.PERCENT
-            ? chooseVariant.price - (chooseVariant.price * chooseVariant.discountId.discountValue) / 100
-            : (chooseVariant?.price as number) - (chooseVariant?.discountId?.discountValue as number);
+        return chooseVariant ? calculateDiscountPrice(chooseVariant) : 0;
     }, [chooseVariant]);
 
     const handleChooseVariant = useCallback((variant: IVariant) => {

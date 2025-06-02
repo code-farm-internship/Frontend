@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 const useAddToCart = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
-    const setToggleCart = useCartStore((state) => state.setToggleCart);
+    const setToggleCart = useCartStore((state) => state.toggleCart);
 
     return useMutation({
         mutationKey: [QUERY_KEYS.CART.ADD],

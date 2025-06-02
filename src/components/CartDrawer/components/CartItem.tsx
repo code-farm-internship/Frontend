@@ -1,13 +1,12 @@
 import useRemoveCartItem from '@/hooks/cart/mutations/useRemoveCartItem';
 import useUpdateCartQuantity from '@/hooks/cart/mutations/useUpdateCartQuantity';
-import { useCartStore } from '@/store/cartStore';
 import { ICartItems, ICartPayload } from '@/types/cart';
-import { DiscountType } from '@/types/discount';
+import { calculateDiscountPrice } from '@/utils/calculateTotalDiscountPrice';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { InputNumber, List, Popconfirm } from 'antd';
 import _ from 'lodash';
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 type CartItem = {
@@ -21,9 +20,7 @@ const CartItem = ({ item }: CartItem) => {
     const [debounceQuantity, setDebounceQuantity] = useState<number | null>(null);
     const maxStock = item.variantId.stock;
     const discountPrice = useMemo(() => {
-        return item.variantId.discountId?.discountType === DiscountType.PERCENT
-            ? item.variantId.price - (item.variantId.price * item.variantId.discountId.discountValue) / 100
-            : item.variantId.price - (item.variantId.discountId?.discountValue as number);
+        return calculateDiscountPrice(item.variantId);
     }, [item.variantId]);
 
     const handleDebounceUpdateQuantity = useMemo(

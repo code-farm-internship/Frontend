@@ -5,4 +5,7 @@ export const PUBLIC_ROUTES = {
     PROFILE: 'auth/profile',
     // cart
     CART_DETAIL: 'cart',
+
+    // product
+    PRODUCT: 'product',
 };

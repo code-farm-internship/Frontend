@@ -1,10 +1,10 @@
 import MainLayout from '@/layouts/MainLayout';
-import Cart from '@/pages/Cart';
+import Cart from '@/pages/cart/Cart';
 import Checkout from '@/pages/Checkout';
 import HomePage from '@/pages/home/HomePage';
 import { Navigate } from 'react-router-dom';
 import { LoginPage, ProductDetail, RegisterPage, Suspense, VerifyEmailPage } from './LazyRoutes';
-import ProtectedRoute from '@/utils/ProtectedRoute';
+import ProtectedRoute from '@/components/common/ProtectedRoute';
 
 export const publicRoutes = [
     {

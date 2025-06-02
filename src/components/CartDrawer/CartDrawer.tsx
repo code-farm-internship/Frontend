@@ -1,12 +1,13 @@
 import useGetAllUserCart from '@/hooks/cart/queries/getAllUserCart';
 import useWindowSize from '@/hooks/common/useWindowSize';
 import { useCartStore } from '@/store/cartStore';
-import { calculateDiscountPrice } from '@/utils/calculateDiscountPrice';
+import { calculateTotalDiscountPrice } from '@/utils/calculateTotalDiscountPrice';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { Button, Drawer, List } from 'antd';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import CartItem from './components/CartItem';
+import { PUBLIC_ROUTES } from '@/constants/routes';
 
 const CartDrawer = () => {
     const isOpen = useCartStore((state) => state.isOpen);
@@ -17,14 +18,16 @@ const CartDrawer = () => {
     const totalPrice = useMemo(
         () =>
             cartItems?.reduce((prev, curr) => {
-                const discountPrice = calculateDiscountPrice(curr);
+                const discountPrice = calculateTotalDiscountPrice(curr);
                 return prev + discountPrice;
             }, 0),
         [cartItems],
     );
 
     const handleToggleCart = () => {
-        setToggleCart();
+        if (window.location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}`) {
+            setToggleCart();
+        }
     };
 
     const handleResizeCartDrawer = (windowWidth: number) => {
