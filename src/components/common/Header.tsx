@@ -190,7 +190,7 @@ const Header = () => {
                     </div>
                 </div>
             )}
-            <CartDrawer />
+            {isAuthenticate && <CartDrawer />}
         </header>
     );
 };

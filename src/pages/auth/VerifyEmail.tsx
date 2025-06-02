@@ -1,8 +1,8 @@
 import successVerifyIcon from '@/assets/icons/email-is-active.svg';
 import failVerifyIcon from '@/assets/icons/email-token-expired-new.svg';
 import { useToast } from '@/contexts/ToastProvider';
-import useResendVerifyEmail from '@/hooks/auth/useResendVerifyEmail';
-import useVerifyEmail from '@/hooks/auth/useVerifyEmail';
+import useResendVerifyEmail from '@/hooks/auth/mutations/useResendVerifyEmail';
+import useVerifyEmail from '@/hooks/auth/mutations/useVerifyEmail';
 import { Button } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';

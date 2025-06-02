@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
-import useRegister from '@/hooks/auth/useRegister';
+import useRegister from '@/hooks/auth/mutations/useRegister';
 import { Provider } from '@/types/auth';
 import { registerSchema } from '@/validations/auth/register';
 

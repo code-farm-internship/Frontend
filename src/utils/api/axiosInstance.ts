@@ -1,6 +1,14 @@
 import { envVars } from '@/config/env.config';
-import axios, { AxiosResponse } from 'axios';
-import { getAccessToken } from '../apiHelpers';
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { getAccessToken, setAccessToken } from '../apiHelpers';
+import { authService } from '@/services/auth.service';
+import { PUBLIC_ROUTES } from '@/constants/routes';
+import { useUserStore } from '@/store/userStore';
+import { navigate } from '../navigate';
+
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+    _isRetry?: boolean;
+}
 
 const axiosOptions = {
     baseURL: envVars.API_URL,
@@ -28,7 +36,30 @@ instance.interceptors.response.use(
     <T>(response: AxiosResponse<T>) => {
         return response.data;
     },
-    (error) => {
+    async (error: AxiosError) => {
+        const config = error.config as CustomAxiosRequestConfig;
+
+        if (axios.isAxiosError(error) && !config._isRetry && config.url !== 'auth/refresh') {
+            try {
+                config._isRetry = true;
+                const { accessToken } = await authService.refreshToken();
+                setAccessToken(accessToken);
+
+                return await instance(config);
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    const axiosError = error as AxiosError;
+
+                    if (axiosError.status && [401, 403].includes(axiosError.status)) {
+                        useUserStore.getState().clearUserData();
+                        if (window.location.pathname !== PUBLIC_ROUTES.LOGIN) {
+                            navigate('/auth/login');
+                        }
+                    }
+                }
+            }
+        }
+
         return Promise.reject(error as Error);
     },
 );

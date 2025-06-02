@@ -8,6 +8,7 @@ export interface IUserState {
     user: IUserInfo;
     setAuthenicate: (isAuth: boolean) => void;
     setUserInfo: (userData: IUserInfo) => void;
+    clearUserData: () => void;
 }
 
 const initialUserInfo = {
@@ -30,6 +31,12 @@ export const useUserStore = create<IUserState>()(
                 setUserInfo: (userData) => {
                     set((state) => {
                         state.user = userData;
+                    });
+                },
+                clearUserData: () => {
+                    set((state) => {
+                        state.isAuthenticate = false;
+                        state.user = initialUserInfo;
                     });
                 },
             })),

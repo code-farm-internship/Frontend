@@ -21,3 +21,8 @@ export interface ILoginResponse {
     refreshToken: string;
     avatar: string;
 }
+
+export interface IRefreshTokenResponse {
+    accessToken: string;
+    refreshToken: string;
+}

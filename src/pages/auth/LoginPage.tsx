@@ -1,4 +1,4 @@
-import useLogin from '@/hooks/auth/useLogin';
+import useLogin from '@/hooks/auth/mutations/useLogin';
 import { loginSchema } from '@/validations/auth/login';
 import { GoogleOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';

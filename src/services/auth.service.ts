@@ -1,4 +1,4 @@
-import { ILoginPayload, ILoginResponse, IRegisterPayload } from '@/types/auth';
+import { ILoginPayload, ILoginResponse, IRefreshTokenResponse, IRegisterPayload } from '@/types/auth';
 import { instance } from '@/utils/api/axiosInstance';
 
 export const authService = {
@@ -16,6 +16,10 @@ export const authService = {
     },
     async resendVerifyEmail(body: { email: string }) {
         const res = await instance.post<null>(`auth/resend-verification`, body);
+        return res.data;
+    },
+    async refreshToken() {
+        const res = await instance.get<IRefreshTokenResponse>('auth/refresh');
         return res.data;
     },
 };
