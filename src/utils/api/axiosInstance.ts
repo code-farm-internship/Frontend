@@ -18,48 +18,54 @@ const axiosOptions = {
 
 export const instance = axios.create(axiosOptions);
 
+// Request interceptor
 instance.interceptors.request.use(
     (config) => {
         const accessToken = getAccessToken();
-
         if (accessToken) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
         return config;
     },
-    (error) => {
-        return Promise.reject(error as Error);
-    },
+    (error) => Promise.reject(error instanceof Error ? error : new Error('Request error')),
 );
 
+// Response interceptor
 instance.interceptors.response.use(
-    <T>(response: AxiosResponse<T>) => {
-        return response.data;
-    },
+    <T>(response: AxiosResponse<T>) => response.data,
     async (error: AxiosError) => {
         const config = error.config as CustomAxiosRequestConfig;
 
-        if (axios.isAxiosError(error) && !config._isRetry && config.url !== 'auth/refresh') {
+        if (
+            axios.isAxiosError(error) &&
+            error.response?.status === 401 &&
+            !config._isRetry &&
+            config.url !== '/auth/refresh'
+        ) {
             try {
                 config._isRetry = true;
+
                 const { accessToken } = await authService.refreshToken();
                 setAccessToken(accessToken);
 
-                return await instance(config);
-            } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    const axiosError = error as AxiosError;
+                return await instance(config); // retry original request
+            } catch (refreshError) {
+                const status = (refreshError as AxiosError).response?.status;
 
-                    if (axiosError.status && [401, 403].includes(axiosError.status)) {
-                        useUserStore.getState().clearUserData();
-                        if (window.location.pathname !== PUBLIC_ROUTES.LOGIN) {
-                            navigate('/auth/login');
-                        }
+                if ([401, 403].includes(status || 0)) {
+                    useUserStore.getState().clearUserData();
+
+                    if (window.location.pathname !== PUBLIC_ROUTES.LOGIN) {
+                        navigate(PUBLIC_ROUTES.LOGIN);
                     }
                 }
+
+                const reason = refreshError instanceof Error ? refreshError : new Error('Token refresh failed');
+                return Promise.reject(reason);
             }
         }
 
-        return Promise.reject(error as Error);
+        const reason = error instanceof Error ? error : new Error('Axios error');
+        return Promise.reject(reason);
     },
 );

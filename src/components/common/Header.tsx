@@ -17,7 +17,7 @@ const Header = () => {
     const isAuthenticate = useUserStore((state) => state.isAuthenticate);
 
     return (
-        <header className='sticky top-0 z-50 bg-white shadow-md'>
+        <header>
             {/* Top bar with contact info */}
             <div className='hidden bg-gray-900 py-2 text-sm text-white md:block'>
                 <div className='mx-auto flex max-w-7xl items-center justify-between px-4'>
@@ -90,7 +90,7 @@ const Header = () => {
             </div>
 
             {/* Navigation */}
-            {/* <nav className='hidden border-b md:block'>
+            <nav className='hidden border-b md:block'>
                 <div className='mx-auto max-w-7xl px-4'>
                     <div className='flex h-12 items-center justify-between'>
                         <div className='flex items-center space-x-8'>
@@ -105,19 +105,19 @@ const Header = () => {
                             ))}
                         </div>
                         <div className='flex items-center space-x-4 text-sm'>
-                            <Link to='/new-releases' className='text-gray-600 transition-colors hover:text-red-500'>
+                            <Link to='/new' className='text-gray-600 transition-colors hover:text-red-500'>
                                 Sách mới
                             </Link>
-                            <Link to='/best-sellers' className='text-gray-600 transition-colors hover:text-red-500'>
+                            <Link to='/best seller' className='text-gray-600 transition-colors hover:text-red-500'>
                                 Bán chạy
                             </Link>
-                            <Link to='/promotions' className='text-gray-600 transition-colors hover:text-red-500'>
-                                Khuyến mãi
+                            <Link to='/featured' className='text-gray-600 transition-colors hover:text-red-500'>
+                                sản phẩm nổi bật
                             </Link>
                         </div>
                     </div>
                 </div>
-            </nav> */}
+            </nav>
 
             {/* Mobile Menu */}
             {isMenuOpen && (
@@ -145,7 +145,7 @@ const Header = () => {
                                 </Link>
                             ))}
                             <Link
-                                to='/new-releases'
+                                to='/new'
                                 className='block border-b py-2 text-gray-600 transition-colors hover:text-red-500'
                                 onClick={() => {
                                     setIsMenuOpen(false);
@@ -154,7 +154,7 @@ const Header = () => {
                                 Sách mới
                             </Link>
                             <Link
-                                to='/best-sellers'
+                                to='/best seller'
                                 className='block border-b py-2 text-gray-600 transition-colors hover:text-red-500'
                                 onClick={() => {
                                     setIsMenuOpen(false);
@@ -163,13 +163,13 @@ const Header = () => {
                                 Bán chạy
                             </Link>
                             <Link
-                                to='/promotions'
+                                to='/featured'
                                 className='block border-b py-2 text-gray-600 transition-colors hover:text-red-500'
                                 onClick={() => {
                                     setIsMenuOpen(false);
                                 }}
                             >
-                                Khuyến mãi
+                                Sản phẩm nổi bật
                             </Link>
                             <div className='space-y-4 pt-4'>
                                 <Link

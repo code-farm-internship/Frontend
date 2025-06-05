@@ -38,3 +38,9 @@ export interface IProductResponse {
     createdAt: string;
     updatedAt: string;
 }
+export interface ProductListResponse {
+    data: IProductResponse[];
+    total: number;
+    page: number;
+    limit: number;
+}

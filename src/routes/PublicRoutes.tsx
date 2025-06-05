@@ -1,10 +1,14 @@
-import MainLayout from '@/layouts/MainLayout';
-import Cart from '@/pages/cart/Cart';
+import Cart from '@/pages/Cart/Cart';
 import Checkout from '@/pages/Checkout';
 import HomePage from '@/pages/home/HomePage';
 import { Navigate } from 'react-router-dom';
 import { LoginPage, ProductDetail, RegisterPage, Suspense, VerifyEmailPage } from './LazyRoutes';
 import ProtectedRoute from '@/components/common/ProtectedRoute';
+import FeaturedProducts from '@/pages/AllProducts/component/FeaturedProducts';
+import NewProducts from '@/pages/AllProducts/component/NewProducts';
+import BestSellers from '@/pages/AllProducts/component/BestSellers';
+import NotFound from '@/pages/NotFound/NotFound';
+import MainLayout from '@/layouts/MainLayout';
 
 export const publicRoutes = [
     {
@@ -20,6 +24,30 @@ export const publicRoutes = [
                 ),
             },
             {
+                path: 'featured',
+                element: (
+                    <Suspense>
+                        <FeaturedProducts />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'new',
+                element: (
+                    <Suspense>
+                        <NewProducts />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'best seller',
+                element: (
+                    <Suspense>
+                        <BestSellers />
+                    </Suspense>
+                ),
+            },
+            {
                 path: 'product/:id',
                 element: (
                     <Suspense>
@@ -27,6 +55,7 @@ export const publicRoutes = [
                     </Suspense>
                 ),
             },
+
             {
                 path: 'cart',
                 element: (
@@ -72,7 +101,7 @@ export const publicRoutes = [
 
     {
         path: '404',
-        element: <div>Not found</div>,
+        element: <NotFound />,
     },
     {
         path: '*',
