@@ -28,30 +28,6 @@ export const publicRoutes = [
                     </Suspense>
                 ),
             },
-            // {
-            //     path: 'featured',
-            //     element: (
-            //         <Suspense>
-            //             <FeaturedProducts />
-            //         </Suspense>
-            //     ),
-            // },
-            // {
-            //     path: 'new',
-            //     element: (
-            //         <Suspense>
-            //             <NewProducts />
-            //         </Suspense>
-            //     ),
-            // },
-            // {
-            //     path: 'best seller',
-            //     element: (
-            //         <Suspense>
-            //             <BestSellers />
-            //         </Suspense>
-            //     ),
-            // },
             {
                 path: 'product/:id',
                 element: (

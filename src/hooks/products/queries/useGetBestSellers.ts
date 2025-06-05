@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export const useGetBestSellers = () => {
     return useQuery({
-        queryKey: TANSTACK_QUERY_KEYS.product.bestsellers,
+        queryKey: [TANSTACK_QUERY_KEYS.product.bestsellers],
         queryFn: () => productService.getBestSellers(),
         enabled: true,
     });

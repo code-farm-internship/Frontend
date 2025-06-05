@@ -18,24 +18,21 @@ const axiosOptions = {
 
 export const instance = axios.create(axiosOptions);
 
+// Request interceptor
 instance.interceptors.request.use(
     (config) => {
         const accessToken = getAccessToken();
-
         if (accessToken) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
         return config;
     },
-    (error) => {
-        return Promise.reject(error as Error);
-    },
+    (error) => Promise.reject(error instanceof Error ? error : new Error('Request error')),
 );
 
+// Response interceptor
 instance.interceptors.response.use(
-    <T>(response: AxiosResponse<T>) => {
-        return response.data;
-    },
+    <T>(response: AxiosResponse<T>) => response.data,
     async (error: AxiosError) => {
         const originalRequest = error.config as CustomAxiosRequestConfig;
 
@@ -62,9 +59,11 @@ instance.interceptors.response.use(
                         }
                     }
                 }
+
+                return Promise.reject(error as Error);
             }
         }
 
-        return Promise.reject(error as Error);
+        return Promise.reject(error);
     },
 );
