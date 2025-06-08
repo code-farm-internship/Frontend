@@ -10,6 +10,7 @@ export interface IVariantItem {
     _id: string;
 }
 export interface ICartItems {
+    isSelected: boolean;
     variantId: IVariantItem;
     productId: {
         _id: string;

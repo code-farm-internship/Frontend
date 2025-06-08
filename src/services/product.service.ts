@@ -2,10 +2,10 @@ import { IProductResponse, ProductListResponse } from '@/types/product';
 import { instance } from '@/utils/api/axiosInstance';
 
 const productService = {
-    getDetailProduct(id: string): Promise<IProductResponse> {
-        return instance.get(`/products/${id}/`);
+    async getDetailProduct(id: string) {
+        const res = await instance.get<IProductResponse>(`products/${id}`);
+        return res.data;
     },
-
     getFeaturedProducts(): Promise<ProductListResponse> {
         return instance.get('/products/featured/');
     },

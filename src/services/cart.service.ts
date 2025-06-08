@@ -1,7 +1,7 @@
 import { ICartPayload, ICartResponse } from '@/types/cart';
 import { instance } from '@/utils/api/axiosInstance';
 
-export const cartServie = {
+export const cartService = {
     async getUserCart() {
         const res = await instance.get<ICartResponse>('/carts/my-cart');
         return res.data;

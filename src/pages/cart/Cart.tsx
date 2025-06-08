@@ -4,26 +4,31 @@ import { calculateTotalDiscountedPrice, calculateTotalDiscountPrice } from '@/ut
 import { formatCurrency } from '@/utils/formatCurrency';
 import { Button, Table, Typography } from 'antd';
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { columns } from './components/CartTableColumn';
+import { Link, useNavigate } from 'react-router-dom';
+import { cartColumns } from './components/CartTableColumn';
+import { useCartStore } from '@/store/cartStore';
+import emptyCartIcon from '@/assets/icons/ico_emptycart.svg';
 
 const { Title, Text } = Typography;
 
 const Cart: React.FC = () => {
     const navigate = useNavigate();
-    const { data: cartResponse, isLoading } = useGetAllUserCart();
-    const cartItems = useMemo(() => cartResponse?.items, [cartResponse]);
+    const cartItems = useCartStore((state) => state.items);
+
     const { totalPrice, totalDiscountedPrice, totalPriceNotDiscount } = useMemo(() => {
-        const totalPrice = cartItems?.reduce((prev, curr) => {
+        const totalPrice = cartItems.reduce((prev, curr) => {
+            if (!curr.isSelected) return prev;
             const discountPrice = calculateTotalDiscountPrice(curr);
             return prev + discountPrice;
         }, 0);
-        const totalPriceNotDiscount = cartItems?.reduce((prev, curr) => {
+        const totalPriceNotDiscount = cartItems.reduce((prev, curr) => {
+            if (!curr.isSelected) return prev;
             const discountPrice = calculateTotalDiscountPrice(curr, false);
             return prev + discountPrice;
         }, 0);
 
-        const totalDiscountedPrice = cartItems?.reduce((prev, curr) => {
+        const totalDiscountedPrice = cartItems.reduce((prev, curr) => {
+            if (!curr.isSelected) return prev;
             const discountPrice = calculateTotalDiscountedPrice(curr);
             return prev + discountPrice;
         }, 0);
@@ -37,10 +42,33 @@ const Cart: React.FC = () => {
             <div className='rounded-lg bg-white p-6 shadow-sm'>
                 <Table<ICartItems>
                     dataSource={cartItems}
-                    loading={isLoading}
-                    columns={columns}
+                    columns={cartColumns}
                     pagination={false}
-                    rowKey='id'
+                    rowKey={(item) => item.variantId._id}
+                    locale={{
+                        emptyText: (
+                            <div className='flex items-center justify-center'>
+                                <div className='space-y-3'>
+                                    <div className='flex justify-center'>
+                                        <img src={emptyCartIcon} alt='empty' />
+                                    </div>
+                                    <div>
+                                        <span className='text-gray-500'>
+                                            Chưa có sản phẩm nào trong giỏ hàng của bạn
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <Link
+                                            className='inline-block rounded-md bg-primary px-6 py-2 text-white duration-300 hover:bg-red-500/95 hover:text-white'
+                                            to={`/`}
+                                        >
+                                            Mua sắm ngay
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        ),
+                    }}
                 />
 
                 <div className='mt-8 flex justify-end'>
@@ -60,6 +88,7 @@ const Cart: React.FC = () => {
                         <Button
                             type='primary'
                             size='large'
+                            disabled={totalPrice === 0}
                             block
                             onClick={() => {
                                 void navigate('/checkout');

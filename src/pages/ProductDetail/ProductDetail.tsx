@@ -5,6 +5,7 @@ import 'swiper/css/navigation';
 import { bestSellers } from '../../data/mock-data';
 import ProductDetailInfo from './components/ProductDetailInfo';
 import ProductLibrary from './components/ProductLibrary';
+import Loader from '@/components/common/Loader';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -51,7 +52,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
             ) : (
-                <div>Loading...</div>
+                <Loader />
             )}
         </>
     );
