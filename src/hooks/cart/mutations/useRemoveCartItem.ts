@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { useToast } from '@/contexts/ToastProvider';
-import { cartServie } from '@/services/cart.service';
+import { cartService } from '@/services/cart.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useRemoveCartItem = () => {
@@ -8,7 +8,7 @@ const useRemoveCartItem = () => {
     const toast = useToast();
     return useMutation({
         mutationKey: [QUERY_KEYS.CART.REMOVE],
-        mutationFn: (id: string) => cartServie.removeCartItem(id),
+        mutationFn: (id: string) => cartService.removeCartItem(id),
         onSuccess() {
             void queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CART.ALL] });
         },

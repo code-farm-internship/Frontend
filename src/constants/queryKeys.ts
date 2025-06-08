@@ -1,6 +1,6 @@
 export const QUERY_KEYS = {
     product: {
-        detail: ['products', 'detail'],
+        DETAIL: 'productDetail',
         featured: ['products', 'featured'],
         new: ['products', 'new'],
         bestsellers: ['products', 'best seller'],
