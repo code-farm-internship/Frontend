@@ -1,11 +1,10 @@
 import ProtectedRoute from '@/components/common/ProtectedRoute';
 import MainLayout from '@/layouts/MainLayout';
-import BestSellers from '@/pages/AllProducts/component/BestSellers';
-import Checkout from '@/pages/Checkout';
 import NotFound from '@/pages/NotFound/NotFound';
 import { Navigate } from 'react-router-dom';
 import {
     CartDetailPage,
+    CheckoutPage,
     HomePage,
     LoginPage,
     ProductDetail,
@@ -43,14 +42,14 @@ export const publicRoutes = [
             //         </Suspense>
             //     ),
             // },
-            {
-                path: 'best seller',
-                element: (
-                    <Suspense>
-                        <BestSellers />
-                    </Suspense>
-                ),
-            },
+            // {
+            //     path: 'best seller',
+            //     element: (
+            //         <Suspense>
+            //             <BestSellers />
+            //         </Suspense>
+            //     ),
+            // },
             {
                 path: 'product/:id',
                 element: (
@@ -72,7 +71,7 @@ export const publicRoutes = [
                 path: 'checkout',
                 element: (
                     <Suspense>
-                        <Checkout />
+                        <CheckoutPage />
                     </Suspense>
                 ),
             },

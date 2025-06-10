@@ -17,11 +17,11 @@ const ProductInfoColumnItem = ({ item }: Props) => {
 
     return (
         <div className='flex gap-3'>
-            <div className='flex items-center space-x-4'>
+            <div className='min-w-8'>
                 <img
                     src={item.variantId.image}
                     alt={item.variantId.formatId.name}
-                    className='w-[56px] rounded object-cover md:w-20'
+                    className='w-14 rounded object-cover md:w-20'
                 />
             </div>
             <div className='space-y-2'>

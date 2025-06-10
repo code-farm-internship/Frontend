@@ -1,3 +1,4 @@
+import { ICoupon } from './coupon';
 import { IDiscount } from './discount';
 import { IFormat } from './format';
 
@@ -26,6 +27,6 @@ export interface ICartPayload {
 }
 
 export interface ICartResponse {
-    userId: string;
-    items: ICartItems[];
+    cart: { userId: string; items: ICartItems[] };
+    coupons: ICoupon[];
 }

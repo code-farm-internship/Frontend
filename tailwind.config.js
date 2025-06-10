@@ -20,6 +20,13 @@ export default {
                 primary: '#EF4444',
                 secondary: '#001529',
             },
+            backgroundImage: {
+                discountTicket: "url('./assets/images/discount_image_final.webp')",
+                freeshipTicket: "url('./assets/images/freeship_image_final.webp')",
+            },
+            backgroundRepeat: {
+                round: 'round',
+            },
         },
     },
     plugins: [],
