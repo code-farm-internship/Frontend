@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin } from 'antd';
 import { useGetBestSellers } from '@/hooks/products/queries/useGetBestSellers';
-import ProductGrid from './ProductGrid';
+import ProductGrid from './Products';
 
 const BestSellers: React.FC = () => {
     const { data, isLoading } = useGetBestSellers();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin } from 'antd';
 import { useGetFeaturedProducts } from '@/hooks/products/queries/useGetFeaturedProducts';
-import ProductGrid from './ProductGrid';
+import ProductGrid from './Products';
 
 const FeaturedProducts: React.FC = () => {
     const { data, isLoading } = useGetFeaturedProducts();

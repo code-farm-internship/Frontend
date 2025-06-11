@@ -1,5 +1,8 @@
 import ProtectedRoute from '@/components/common/ProtectedRoute';
+import { PUBLIC_ROUTES } from '@/constants/routes';
 import MainLayout from '@/layouts/MainLayout';
+import AllProducts from '@/pages/AllProducts/AllProducts';
+import OrderSuccessPage from '@/pages/Checkout/OrderSuccessPage/OrderSuccessPage';
 import NotFound from '@/pages/NotFound/NotFound';
 import { Navigate } from 'react-router-dom';
 import {
@@ -12,8 +15,6 @@ import {
     Suspense,
     VerifyEmailPage,
 } from './LazyRoutes';
-import OrderSuccessPage from '@/pages/Checkout/OrderSuccessPage/OrderSuccessPage';
-import { PUBLIC_ROUTES } from '@/constants/routes';
 
 export const publicRoutes = [
     {
@@ -25,6 +26,14 @@ export const publicRoutes = [
                 element: (
                     <Suspense>
                         <HomePage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'products/all',
+                element: (
+                    <Suspense>
+                        <AllProducts />
                     </Suspense>
                 ),
             },
