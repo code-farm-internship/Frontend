@@ -9,6 +9,7 @@ import NewProducts from '@/pages/AllProducts/component/NewProducts';
 import BestSellers from '@/pages/AllProducts/component/BestSellers';
 import NotFound from '@/pages/NotFound/NotFound';
 import MainLayout from '@/layouts/MainLayout';
+import AllProducts from '@/pages/AllProducts/AllProducts';
 
 export const publicRoutes = [
     {
@@ -20,6 +21,14 @@ export const publicRoutes = [
                 element: (
                     <Suspense>
                         <HomePage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'products/all',
+                element: (
+                    <Suspense>
+                        <AllProducts />
                     </Suspense>
                 ),
             },

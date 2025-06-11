@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductGrid from './ProductGrid';
+import ProductGrid from './Products';
 import { Spin } from 'antd';
 import { useGetNewProducts } from '@/hooks/products/queries/useGetNewProducts';
 
