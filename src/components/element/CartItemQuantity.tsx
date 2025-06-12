@@ -4,6 +4,7 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { InputNumber } from 'antd';
 import _ from 'lodash';
 import { memo, useEffect, useMemo, useState } from 'react';
+import '@/styles/customAntd.css';
 
 type CartItemQuantityProps = {
     variant: ICartItems['variantId'];

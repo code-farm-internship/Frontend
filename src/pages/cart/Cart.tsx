@@ -1,4 +1,5 @@
-import useGetAllUserCart from '@/hooks/cart/queries/getAllUserCart';
+import emptyCartIcon from '@/assets/icons/ico_emptycart.svg';
+import { useCartStore } from '@/store/cartStore';
 import { ICartItems } from '@/types/cart';
 import { calculateTotalDiscountedPrice, calculateTotalDiscountPrice } from '@/utils/calculateTotalDiscountPrice';
 import { formatCurrency } from '@/utils/formatCurrency';
@@ -6,8 +7,7 @@ import { Button, Table, Typography } from 'antd';
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { cartColumns } from './components/CartTableColumn';
-import { useCartStore } from '@/store/cartStore';
-import emptyCartIcon from '@/assets/icons/ico_emptycart.svg';
+import '@/styles/customAntd.css';
 
 const { Title, Text } = Typography;
 

@@ -1,18 +1,20 @@
+import { PUBLIC_ROUTES } from '@/constants/routes';
 import useCreateOrder from '@/hooks/order/mutations/useCreateOrder';
 import { useCartStore } from '@/store/cartStore';
 import { useCheckoutStore } from '@/store/checkoutStore';
+import '@/styles/customAntd.css';
 import { PaymentMethod } from '@/types/checkout';
+import { IOrderPayload } from '@/types/order';
 import { calculateTotalDiscountedPrice, calculateTotalDiscountPrice } from '@/utils/calculateTotalDiscountPrice';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Modal, Radio, RadioChangeEvent, Row, Space, Tooltip, Typography } from 'antd';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import CouponInput from './components/CouponInput';
-import OrderItem from './components/OrderItem';
-import { IOrderPayload } from '@/types/order';
-import CustomerCheckoutInfo from './components/CustomerCheckoutInfo/CustomerCheckoutInfo';
 import { useNavigate } from 'react-router-dom';
-import { PUBLIC_ROUTES } from '@/constants/routes';
+import CouponContainer from './components/Coupons/CouponContainer';
+import CouponInput from './components/Coupons/CouponInput';
+import CustomerCheckoutInfo from './components/CustomerCheckoutInfo/CustomerCheckoutInfo';
+import OrderItem from './components/OrderItem';
 
 const { Title, Text } = Typography;
 
@@ -206,8 +208,11 @@ const Checkout: React.FC = () => {
                 </Col>
             </Row>
 
-            {/* Coupon model */}
+            {/* Coupon modal */}
             <Modal
+                centered
+                className='coupon-modal'
+                width={'44vw'}
                 title={
                     <div className='flex gap-2'>
                         <span className='uppercase text-primary'>Chọn mã khuyến mãi</span>
@@ -227,8 +232,9 @@ const Checkout: React.FC = () => {
                 footer={<></>}
                 onCancel={handleCancel}
             >
-                <div className=''>
+                <div className='px-1 pt-2'>
                     <CouponInput />
+                    <CouponContainer />
                 </div>
             </Modal>
         </div>

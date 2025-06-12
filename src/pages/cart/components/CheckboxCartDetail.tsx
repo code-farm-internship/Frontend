@@ -1,5 +1,4 @@
 import { useCartStore } from '@/store/cartStore';
-import '@/styles/antdCheckbox.css';
 import { Checkbox } from 'antd';
 import { memo } from 'react';
 
