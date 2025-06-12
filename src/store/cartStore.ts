@@ -69,6 +69,12 @@ export const useCartStore = create<ICartState>()(
                                 return item;
                             });
 
+                            newCart.forEach((cartItem) => {
+                                if (!cartItem.isSelected) {
+                                    isSelectedAll = false;
+                                }
+                            });
+
                             state.items = newCart;
                             state.isSelectedAll = isSelectedAll;
                         },
