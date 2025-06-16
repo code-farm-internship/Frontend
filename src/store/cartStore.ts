@@ -9,23 +9,21 @@ export interface ICartState {
     cartQuantity: number;
     items: ICartItems[];
     isSelectedAll: boolean;
-    isLoading: boolean;
     toggleCart: () => void;
     setCartItems: (items: ICartItems[]) => void;
     setSelected: (variantId: string) => void;
     setSelectedAll: () => void;
-    setIsLoading: (isLoading: boolean) => void;
+    reset: () => void;
 }
 
 export const useCartStore = create<ICartState>()(
     devtools(
         persist(
-            immer((set, get) => ({
+            immer((set) => ({
                 isOpen: false,
                 cartQuantity: 0,
                 items: [],
                 isSelectedAll: false,
-                isLoading: false,
                 toggleCart: () => {
                     set((state) => {
                         state.isOpen = !state.isOpen;
@@ -44,12 +42,6 @@ export const useCartStore = create<ICartState>()(
                         });
                         state.isSelectedAll = !newCart.length ? false : state.isSelectedAll;
                         state.items = newCart;
-                        state.isLoading = false;
-                    });
-                },
-                setIsLoading(isLoading) {
-                    set((state) => {
-                        state.isLoading = isLoading;
                     });
                 },
                 setSelected(variantId) {
@@ -106,6 +98,17 @@ export const useCartStore = create<ICartState>()(
                         },
                         false,
                         'cart/setSelectedAll',
+                    );
+                },
+                reset: () => {
+                    set(
+                        (state) => {
+                            state.cartQuantity = 0;
+                            state.items = [];
+                            state.isSelectedAll = false;
+                        },
+                        false,
+                        'cart/reset',
                     );
                 },
             })),

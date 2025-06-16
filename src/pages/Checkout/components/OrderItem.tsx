@@ -15,9 +15,9 @@ const OrderItem = ({ item }: Props) => {
             <img src={item.variantId.image} alt={item.productId.name} className='w-14 rounded object-cover' />
 
             <div className='flex-1'>
-                <div className='space-x-2'>
+                <div className='space-x-2 capitalize'>
                     <Text strong>{item.productId.name}</Text>
-                    <span className='rounded-sm border border-black/30 bg-white px-1 text-xs capitalize'>
+                    <span className='rounded-sm border border-black/30 bg-white px-1 text-xs'>
                         {item.variantId.formatId.name}
                     </span>
                 </div>
