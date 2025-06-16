@@ -12,6 +12,8 @@ import {
     Suspense,
     VerifyEmailPage,
 } from './LazyRoutes';
+import OrderSuccessPage from '@/pages/Checkout/OrderSuccessPage/OrderSuccessPage';
+import { PUBLIC_ROUTES } from '@/constants/routes';
 
 export const publicRoutes = [
     {
@@ -100,6 +102,14 @@ export const publicRoutes = [
                 element: (
                     <Suspense>
                         <VerifyEmailPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: PUBLIC_ROUTES.ORDER_SUCCESS,
+                element: (
+                    <Suspense>
+                        <OrderSuccessPage />
                     </Suspense>
                 ),
             },
