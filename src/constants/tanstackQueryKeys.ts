@@ -1,9 +1,9 @@
 export const TANSTACK_QUERY_KEYS = {
     product: {
         DETAIL: 'productDetail',
-        featured: ['products', 'featured'],
-        new: ['products', 'new'],
-        bestsellers: ['products', 'best seller'],
+        featured: 'featured',
+        new: 'new',
+        bestsellers: 'best seller',
     },
     CART: {
         ALL: 'cartAll',

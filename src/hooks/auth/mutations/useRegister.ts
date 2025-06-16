@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/constants/queryKeys';
+import { TANSTACK_QUERY_KEYS } from '@/constants/tanstackQueryKeys';
 import { useToast } from '@/contexts/ToastProvider';
 import { authService } from '@/services/auth.service';
 import { IRegisterPayload } from '@/types/auth';
@@ -8,7 +8,7 @@ import { IErrorResponse } from '@/types/response';
 const useRegister = () => {
     const toast = useToast();
     return useMutation({
-        mutationKey: [QUERY_KEYS.AUTH.REGISTER],
+        mutationKey: [TANSTACK_QUERY_KEYS.AUTH.REGISTER],
         mutationFn: (body: IRegisterPayload) => authService.register(body),
         onSuccess() {
             toast('info', 'Tạo tài khoản thành công. Vui lòng kiểm tra email để xác thực tài khoản.');

@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/constants/queryKeys';
+import { TANSTACK_QUERY_KEYS } from '@/constants/tanstackQueryKeys';
 import { useToast } from '@/contexts/ToastProvider';
 import { authService } from '@/services/auth.service';
 import { useUserStore } from '@/store/userStore';
@@ -15,7 +15,7 @@ const useLogin = () => {
     const setUserInfo = useUserStore((state) => state.setUserInfo);
 
     return useMutation({
-        mutationKey: [QUERY_KEYS.AUTH.LOGIN],
+        mutationKey: [TANSTACK_QUERY_KEYS.AUTH.LOGIN],
         mutationFn: (body: ILoginPayload) => authService.login(body),
         onSuccess(res) {
             setUserInfo({ avatar: res.avatar, email: res.email, username: res.username });

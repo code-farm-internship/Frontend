@@ -1,14 +1,14 @@
-import { QUERY_KEYS } from '@/constants/queryKeys';
+import { TANSTACK_QUERY_KEYS } from '@/constants/tanstackQueryKeys';
 import { cartService } from '@/services/cart.service';
 import { useCartStore } from '@/store/cartStore';
-import { useCouponStore } from '@/store/couponStore';
+import { useCheckoutStore } from '@/store/checkoutStore';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetAllUserCart = () => {
     const setCartItems = useCartStore((state) => state.setCartItems);
-    const setCoupons = useCouponStore((state) => state.setCoupons);
+    const setCoupons = useCheckoutStore((state) => state.setCoupons);
     return useQuery({
-        queryKey: [QUERY_KEYS.CART.ALL],
+        queryKey: [TANSTACK_QUERY_KEYS.CART.ALL],
         queryFn: async () => {
             const res = await cartService.getUserCart();
             setCartItems(res.cart.items);
