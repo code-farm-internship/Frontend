@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Button, Space } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { newReleases, bestSellers, recommendedBooks } from '../../data/mock-data';
 import Banner from './components/Banner';
 import BookGrid from './components/BookGrid';
@@ -9,7 +9,6 @@ const { Title, Paragraph } = Typography;
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
-
     return (
         <div className='animate-fadeIn mx-auto max-w-7xl px-4 py-6'>
             <Banner />

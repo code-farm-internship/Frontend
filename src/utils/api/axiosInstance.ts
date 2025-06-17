@@ -55,7 +55,7 @@ instance.interceptors.response.use(
                 if (axios.isAxiosError(error)) {
                     const axiosError = error as AxiosError;
 
-                    if (axiosError.status && [401, 403].includes(axiosError.status)) {
+                    if (axiosError.status && [401].includes(axiosError.status)) {
                         useUserStore.getState().clearUserData();
                         if (window.location.pathname !== PUBLIC_ROUTES.LOGIN) {
                             navigate('/auth/login');

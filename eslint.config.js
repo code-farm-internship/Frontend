@@ -59,7 +59,7 @@ export default tseslint.config({
         'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
         // TypeScript-specific overrides
-        '@typescript-eslint/no-explicit-any': 'warn',
+        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-unused-vars': [
             'warn',
@@ -69,7 +69,7 @@ export default tseslint.config({
                 caughtErrorsIgnorePattern: '^_',
             },
         ],
-        '@typescript-eslint/no-floating-promises': ['error', { ignoreVoid: true }],
+        '@typescript-eslint/no-floating-promises': ['error'],
 
         // Prettier rules
         'prettier/prettier': [
