@@ -15,6 +15,9 @@ import {
     Suspense,
     VerifyEmailPage,
 } from './LazyRoutes';
+import FeaturedProducts from '@/pages/AllProducts/component/FeaturedProducts';
+import NewProducts from '@/pages/AllProducts/component/NewProducts';
+import BestSellers from '@/pages/AllProducts/component/BestSellers';
 
 export const publicRoutes = [
     {
@@ -30,10 +33,26 @@ export const publicRoutes = [
                 ),
             },
             {
-                path: 'products/all',
+                path: 'featured',
                 element: (
                     <Suspense>
-                        <AllProducts />
+                        <FeaturedProducts />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'new',
+                element: (
+                    <Suspense>
+                        <NewProducts />
+                    </Suspense>
+                ),
+            },
+            {
+                path: 'best seller',
+                element: (
+                    <Suspense>
+                        <BestSellers />
                     </Suspense>
                 ),
             },

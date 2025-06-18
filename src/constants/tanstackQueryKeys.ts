@@ -1,5 +1,7 @@
 export const TANSTACK_QUERY_KEYS = {
     product: {
+        all: ['products'],
+        list: ['products', 'list'],
         DETAIL: 'productDetail',
         featured: 'featured',
         new: 'new',
