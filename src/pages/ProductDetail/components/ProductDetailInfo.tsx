@@ -113,22 +113,32 @@ const ProductDetailInfo = ({ productDetail }: ProductDetailProps) => {
                     <div className='flex gap-1'>
                         <MinusOutlined
                             onClick={() => {
-                                handleDecreaseQuantity(quantity);
+                                if (quantity > 1) {
+                                    handleDecreaseQuantity(quantity);
+                                }
                             }}
-                            className='-mr-2 cursor-pointer select-none rounded-sm border border-black px-2'
+                            className='-mr-2 cursor-pointer select-none rounded-md border border-black px-2'
                         />
                         <InputNumber
                             min={1}
                             value={quantity}
                             controls={false}
+                            defaultValue={1}
+                            onChange={(value) => {
+                                if (value) {
+                                    setQuantity(value);
+                                }
+                            }}
                             max={chooseVariant?.stock || 1}
                             className='center-quantity-input ml-2 w-32 font-medium'
                         />
                         <PlusOutlined
                             onClick={() => {
-                                handleIncreaseQuantity(quantity, chooseVariant?.stock as number);
+                                if (chooseVariant && quantity < chooseVariant.stock) {
+                                    handleIncreaseQuantity(quantity, chooseVariant.stock);
+                                }
                             }}
-                            className='cursor-pointer select-none rounded-sm border border-black px-2'
+                            className='cursor-pointer select-none rounded-md border border-black px-2'
                         />
                     </div>
                 </div>

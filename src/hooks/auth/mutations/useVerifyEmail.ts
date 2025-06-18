@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/constants/queryKeys';
+import { TANSTACK_QUERY_KEYS } from '@/constants/tanstackQueryKeys';
 import { useToast } from '@/contexts/ToastProvider';
 import { authService } from '@/services/auth.service';
 import { IErrorResponse } from '@/types/response';
@@ -8,7 +8,7 @@ const useVerifyEmail = () => {
     const toast = useToast();
 
     return useMutation({
-        mutationKey: [QUERY_KEYS.AUTH.VERIFY_EMAIL],
+        mutationKey: [TANSTACK_QUERY_KEYS.AUTH.VERIFY_EMAIL],
         mutationFn: (token: string) => authService.verifyEmail(token),
         onSuccess(res) {
             console.log(res);

@@ -1,0 +1,17 @@
+/* Checkbox */
+.checkbox-black .ant-checkbox-inner {
+    border: 1px solid #000;
+    width: 20px;
+    height: 20px;
+}
+
+/* Input */
+.center-quantity-input .ant-input-number-input {
+    text-align: center;
+    user-select: none;
+}
+
+/* Modal */
+.coupon-modal .ant-modal-content {
+    padding: 20px 14px 0 14px;
+}

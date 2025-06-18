@@ -1,11 +1,12 @@
-export const QUERY_KEYS = {
+export const TANSTACK_QUERY_KEYS = {
     product: {
         all: ['products'],
         list: ['products', 'list'],
-        detail: ['products', 'detail'],
-        featured: ['products', 'featured'],
-        new: ['products', 'new'],
-        bestsellers: ['products', 'best seller'],
+
+        DETAIL: 'productDetail',
+        featured: 'featured',
+        new: 'new',
+        bestsellers: 'best seller',
     },
     CART: {
         ALL: 'cartAll',
@@ -18,5 +19,13 @@ export const QUERY_KEYS = {
         LOGIN: 'login',
         VERIFY_EMAIL: 'verify-email',
         RESEND_VERIFY_EMAIL: 'resend-verify-email',
+    },
+    SHIPPING: {
+        PROVINCE: 'province',
+        DISTRICT: 'district',
+        WARD: 'ward',
+    },
+    ORDER: {
+        CREATE: 'createOrder',
     },
 };

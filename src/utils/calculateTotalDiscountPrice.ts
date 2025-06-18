@@ -28,7 +28,7 @@ export const calculateTotalDiscountedPrice = (item: CalculateDiscount) => {
     const discount = variantId.discountId;
 
     if (!discount) {
-        return variantId.price * item.quantity;
+        return 0;
     }
 
     if (discount.discountType === DiscountType.PERCENT) {
