@@ -1,16 +1,23 @@
-import Cart from '@/pages/Cart/Cart';
-import Checkout from '@/pages/Checkout';
-import HomePage from '@/pages/home/HomePage';
-import { Navigate } from 'react-router-dom';
-import { LoginPage, ProductDetail, RegisterPage, Suspense, VerifyEmailPage } from './LazyRoutes';
 import ProtectedRoute from '@/components/common/ProtectedRoute';
+import { PUBLIC_ROUTES } from '@/constants/routes';
+import MainLayout from '@/layouts/MainLayout';
+import AllProducts from '@/pages/AllProducts/AllProducts';
+import OrderSuccessPage from '@/pages/Checkout/OrderSuccessPage/OrderSuccessPage';
+import NotFound from '@/pages/NotFound/NotFound';
+import { Navigate } from 'react-router-dom';
+import {
+    CartDetailPage,
+    CheckoutPage,
+    HomePage,
+    LoginPage,
+    ProductDetail,
+    RegisterPage,
+    Suspense,
+    VerifyEmailPage,
+} from './LazyRoutes';
 import FeaturedProducts from '@/pages/AllProducts/component/FeaturedProducts';
 import NewProducts from '@/pages/AllProducts/component/NewProducts';
 import BestSellers from '@/pages/AllProducts/component/BestSellers';
-import NotFound from '@/pages/NotFound/NotFound';
-import MainLayout from '@/layouts/MainLayout';
-import AllProducts from '@/pages/AllProducts/AllProducts';
-
 export const publicRoutes = [
     {
         path: '/',
@@ -69,7 +76,7 @@ export const publicRoutes = [
                 path: 'cart',
                 element: (
                     <Suspense>
-                        <Cart />
+                        <CartDetailPage />
                     </Suspense>
                 ),
             },
@@ -77,7 +84,7 @@ export const publicRoutes = [
                 path: 'checkout',
                 element: (
                     <Suspense>
-                        <Checkout />
+                        <CheckoutPage />
                     </Suspense>
                 ),
             },
@@ -103,7 +110,19 @@ export const publicRoutes = [
             },
             {
                 path: 'auth/verify-email',
-                element: <VerifyEmailPage />,
+                element: (
+                    <Suspense>
+                        <VerifyEmailPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: PUBLIC_ROUTES.ORDER_SUCCESS,
+                element: (
+                    <Suspense>
+                        <OrderSuccessPage />
+                    </Suspense>
+                ),
             },
         ],
     },

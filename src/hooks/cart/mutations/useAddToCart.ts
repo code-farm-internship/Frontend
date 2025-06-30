@@ -1,6 +1,6 @@
-import { QUERY_KEYS } from '@/constants/queryKeys';
+import { TANSTACK_QUERY_KEYS } from '@/constants/tanstackQueryKeys';
 import { useToast } from '@/contexts/ToastProvider';
-import { cartServie } from '@/services/cart.service';
+import { cartService } from '@/services/cart.service';
 import { useCartStore } from '@/store/cartStore';
 import { ICartPayload } from '@/types/cart';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -11,10 +11,10 @@ const useAddToCart = () => {
     const setToggleCart = useCartStore((state) => state.toggleCart);
 
     return useMutation({
-        mutationKey: [QUERY_KEYS.CART.ADD],
-        mutationFn: (payload: ICartPayload) => cartServie.addToCart(payload),
+        mutationKey: [TANSTACK_QUERY_KEYS.CART.ADD],
+        mutationFn: (payload: ICartPayload) => cartService.addToCart(payload),
         onSuccess() {
-            void queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CART.ALL] });
+            void queryClient.invalidateQueries({ queryKey: [TANSTACK_QUERY_KEYS.CART.ALL] });
             setToggleCart();
         },
         onError() {

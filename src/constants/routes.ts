@@ -8,4 +8,8 @@ export const PUBLIC_ROUTES = {
 
     // product
     PRODUCT: 'product',
+
+    // order
+    ORDER_SUCCESS: 'order-success',
+    ORDER_FAILED: 'order-error',
 };

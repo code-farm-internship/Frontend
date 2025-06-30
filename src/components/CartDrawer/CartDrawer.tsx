@@ -13,7 +13,7 @@ const CartDrawer = () => {
     const isOpen = useCartStore((state) => state.isOpen);
     const setToggleCart = useCartStore((state) => state.toggleCart);
     const { data: cartResponse, isLoading } = useGetAllUserCart();
-    const cartItems = useMemo(() => cartResponse?.items, [cartResponse]);
+    const cartItems = useMemo(() => cartResponse?.cart.items, [cartResponse]);
     const { windowWidth } = useWindowSize();
     const totalPrice = useMemo(
         () =>

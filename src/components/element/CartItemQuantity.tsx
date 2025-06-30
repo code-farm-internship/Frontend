@@ -4,6 +4,7 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { InputNumber } from 'antd';
 import _ from 'lodash';
 import { memo, useEffect, useMemo, useState } from 'react';
+import '@/styles/customAntd.css';
 
 type CartItemQuantityProps = {
     variant: ICartItems['variantId'];
@@ -49,23 +50,28 @@ const CartItemQuantity = ({ variant, quantity }: CartItemQuantityProps) => {
                 variantId: variant._id,
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debounceQuantity, handleDebounceUpdateQuantity]);
 
     useEffect(() => {
         if (quantity !== itemQuantity) {
             setItemQuantity(quantity);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quantity]);
     return (
-        <div className='flex gap-1'>
-            <MinusOutlined
-                style={{ fontSize: 12 }}
-                disabled={itemQuantity < 2}
-                onClick={() => {
-                    handleDecreaseQuantity(itemQuantity);
-                }}
-                className='-mr-2 cursor-pointer select-none rounded-sm border border-black px-2'
-            />
+        <div className='flex items-baseline gap-1'>
+            <div className='-mr-2 flex h-6 w-6 items-center justify-center rounded-sm border border-black'>
+                <MinusOutlined
+                    style={{ fontSize: 12 }}
+                    onClick={() => {
+                        if (itemQuantity > 1) {
+                            handleDecreaseQuantity(itemQuantity);
+                        }
+                    }}
+                    className='cursor-pointer select-none'
+                />
+            </div>
             <InputNumber
                 min={1}
                 value={itemQuantity}
@@ -77,16 +83,20 @@ const CartItemQuantity = ({ variant, quantity }: CartItemQuantityProps) => {
                     }
                 }}
                 max={maxStock}
-                className='center-quantity-input ml-2 w-32 select-none font-medium'
+                className='center-quantity-input ml-2 select-none font-medium'
             />
-            <PlusOutlined
-                style={{ fontSize: 12 }}
-                disabled={itemQuantity >= maxStock}
-                onClick={() => {
-                    handleIncreaseQuantity(itemQuantity, maxStock);
-                }}
-                className='cursor-pointer select-none rounded-sm border border-black px-2'
-            />
+            <div className='flex h-6 w-6 items-center justify-center rounded-sm border border-black'>
+                <PlusOutlined
+                    style={{ fontSize: 12 }}
+                    disabled={itemQuantity >= maxStock}
+                    onClick={() => {
+                        if (itemQuantity < maxStock) {
+                            handleIncreaseQuantity(itemQuantity, maxStock);
+                        }
+                    }}
+                    className='cursor-pointer select-none'
+                />
+            </div>
         </div>
     );
 };

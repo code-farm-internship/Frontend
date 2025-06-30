@@ -1,20 +1,21 @@
+import { PUBLIC_ROUTES } from '@/constants/routes';
 import { useCartStore } from '@/store/cartStore';
 import { useUserStore } from '@/store/userStore';
 import { MenuOutlined, SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Badge } from 'antd';
+import clsx from 'clsx';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../../data/mock-data';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import HeaderUserToolbar from './HeaderUserToolbar';
-import { PUBLIC_ROUTES } from '@/constants/routes';
-import clsx from 'clsx';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const setToggleCart = useCartStore((state) => state.toggleCart);
-    const cartQuantity = useCartStore((state) => state.cartQuantity);
+    const cartQuantity = useCartStore((state) => state.items.length);
     const isAuthenticate = useUserStore((state) => state.isAuthenticate);
+    const location = useLocation();
 
     return (
         <header>
@@ -61,12 +62,9 @@ const Header = () => {
                         <div className='flex items-center space-x-1 md:space-x-4'>
                             <HeaderUserToolbar />
                             <div
-                                className={`${clsx({ 'cursor-pointer': window.location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}` })} p-2`}
+                                className={`${clsx({ 'cursor-pointer': location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}` })} p-2`}
                                 onClick={() => {
-                                    if (
-                                        isAuthenticate &&
-                                        window.location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}`
-                                    ) {
+                                    if (isAuthenticate && location.pathname !== `/${PUBLIC_ROUTES.CART_DETAIL}`) {
                                         setToggleCart();
                                     }
                                 }}

@@ -14,7 +14,7 @@ type CartItem = {
 
 const CartItem = ({ item }: CartItem) => {
     const discountPrice = useMemo(() => {
-        return calculateDiscountPrice(item);
+        return calculateDiscountPrice(item.variantId);
     }, [item]);
 
     return (

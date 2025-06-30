@@ -35,11 +35,10 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
     const handleSlideChange = useCallback((swiper: SwiperClass) => {
         setIndexImage(swiper.realIndex);
     }, []);
-
     return (
         <>
             <div className='flex w-full flex-wrap gap-8 overflow-hidden md:flex-nowrap'>
-                <div className={`relative ${windowWidth < 768 ? 'h-60 w-full' : 'max-h-library h-full w-32'}`}>
+                <div className={`relative ${windowWidth < 768 ? 'h-60 w-full' : 'h-full max-h-library w-32'}`}>
                     {windowWidth < 768 && (
                         <Swiper
                             modules={[Navigation, A11y]}
@@ -110,13 +109,13 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                         <>
                             <div
                                 onClick={prevSlide}
-                                className='absolute left-[calc(50%)] top-1 z-10 -translate-x-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute left-[calc(50%)] top-1 z-10 -translate-x-1/2 cursor-pointer select-none rounded-sm bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <UpOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
                             <div
                                 onClick={nextSlide}
-                                className='absolute bottom-1 left-[calc(50%)] z-10 -translate-x-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute bottom-1 left-[calc(50%)] z-10 -translate-x-1/2 cursor-pointer select-none rounded-sm bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <DownOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
@@ -125,13 +124,13 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                         <>
                             <div
                                 onClick={prevSlide}
-                                className='absolute left-0 top-[calc(50%)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute left-0 top-[calc(50%)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-sm bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <LeftOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
                             <div
                                 onClick={nextSlide}
-                                className='absolute right-0 top-[calc(50%)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-[2px] bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
+                                className='absolute right-0 top-[calc(50%)] z-10 -translate-y-1/2 cursor-pointer select-none rounded-sm bg-black/50 px-2 py-1 duration-300 hover:bg-black/40'
                             >
                                 <RightOutlined style={{ color: '#fff', fontSize: 14 }} />
                             </div>
@@ -139,7 +138,7 @@ const ProductLibrary = ({ productDetail }: LibraryProps) => {
                     )}
                 </div>
                 {windowWidth > 768 && (
-                    <div className='max-h-library max-w-library m-auto flex w-full items-center justify-center overflow-hidden md:m-0'>
+                    <div className='m-auto flex max-h-library w-full max-w-library items-center justify-center overflow-hidden md:m-0'>
                         <Image
                             className='max-h-full max-w-full object-contain'
                             src={productDetail.library[indexImage]?.imageUrl}

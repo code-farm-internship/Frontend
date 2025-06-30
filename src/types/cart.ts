@@ -1,3 +1,4 @@
+import { ICoupon } from './coupon';
 import { IDiscount } from './discount';
 import { IFormat } from './format';
 
@@ -10,6 +11,7 @@ export interface IVariantItem {
     _id: string;
 }
 export interface ICartItems {
+    isSelected: boolean;
     variantId: IVariantItem;
     productId: {
         _id: string;
@@ -25,6 +27,6 @@ export interface ICartPayload {
 }
 
 export interface ICartResponse {
-    userId: string;
-    items: ICartItems[];
+    cart: { userId: string; items: ICartItems[] };
+    coupons: ICoupon[];
 }
