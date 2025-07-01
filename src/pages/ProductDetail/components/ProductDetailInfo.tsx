@@ -1,5 +1,4 @@
 import useAddToCart from '@/hooks/cart/mutations/useAddToCart';
-import { DiscountType } from '@/types/discount';
 import { IProductResponse, IVariant } from '@/types/product';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
