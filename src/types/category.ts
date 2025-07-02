@@ -1,7 +1,11 @@
 export interface ICategory {
     _id: string;
     name: string;
-    level: number;
-    description: string;
+    parentId?: string;
+    level?: number;
+    image: string;
+    imageUrlRef: string;
+    description?: string;
     isDeleted: boolean;
+    slug: string;
 }

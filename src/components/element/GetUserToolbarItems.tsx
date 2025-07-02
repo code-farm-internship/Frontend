@@ -5,12 +5,21 @@ import HeaderToolbarItem from './HeaderToolbarItem';
 
 export const GetUserToolbarItems = () => {
     const isAuthenticate = useUserStore((state) => state.isAuthenticate);
+    const userInfo = useUserStore((state) => state.user);
 
     const loggedItems: MenuProps['items'] = [
         {
             key: 'profile',
             label: <HeaderToolbarItem title='Profile' route={PUBLIC_ROUTES.PROFILE} />,
         },
+        ...(userInfo.role === 'admin' || userInfo.role === 'manager'
+            ? [
+                  {
+                      key: 'admin',
+                      label: <HeaderToolbarItem title='Admin Panel' route='/admin' />,
+                  },
+              ]
+            : []),
         {
             key: 'logout',
             label: (

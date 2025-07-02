@@ -5,7 +5,7 @@ import { useGetFeaturedProducts } from '@/hooks/products/queries/useGetFeaturedP
 import { useGetNewProducts } from '@/hooks/products/queries/useGetNewProducts';
 import { useGetBestSellers } from '@/hooks/products/queries/useGetBestSellers';
 import ProductGrid from '../AllProducts/component/Products';
-import { IProductResponse } from '@/types/product';
+import { IProduct } from '@/types/product';
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ const HomePage: React.FC = () => {
 
     const ProductSection: React.FC<{
         title: string;
-        products: IProductResponse[];
+        products: IProduct[];
         isLoading: boolean;
         viewAllLink: string;
     }> = ({ title, products, isLoading, viewAllLink }) => {
@@ -90,7 +90,7 @@ const HomePage: React.FC = () => {
 
             <ProductSection
                 title='SÁCH MỚI NHẤT'
-                products={newProducts?.data ?? []}
+                products={newProducts ?? []}
                 isLoading={newLoading}
                 viewAllLink='/new'
             />
@@ -105,7 +105,7 @@ const HomePage: React.FC = () => {
 
             <ProductSection
                 title='BÁN CHẠY NHẤT'
-                products={bestSellers?.data ?? []}
+                products={bestSellers ?? []}
                 isLoading={bestSellersLoading}
                 viewAllLink='/bestsellers'
             />
@@ -126,7 +126,7 @@ const HomePage: React.FC = () => {
 
             <ProductSection
                 title='SÁCH NỔI BẬT'
-                products={featuredProducts?.data ?? []}
+                products={featuredProducts ?? []}
                 isLoading={featuredLoading}
                 viewAllLink='/featured'
             />

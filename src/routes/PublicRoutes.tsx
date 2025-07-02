@@ -1,9 +1,9 @@
 import ProtectedRoute from '@/components/common/ProtectedRoute';
 import { PUBLIC_ROUTES } from '@/constants/routes';
 import MainLayout from '@/layouts/MainLayout';
-import AllProducts from '@/pages/AllProducts/AllProducts';
 import OrderSuccessPage from '@/pages/Checkout/OrderSuccessPage/OrderSuccessPage';
 import NotFound from '@/pages/NotFound/NotFound';
+// import Unauthorized from '@/pages/Unauthorized/Unauthorized';
 import { Navigate } from 'react-router-dom';
 import {
     CartDetailPage,
@@ -124,6 +124,10 @@ export const publicRoutes = [
         path: '404',
         element: <NotFound />,
     },
+    // {
+    //     path: 'unauthorized',
+    //     element: <Unauthorized />,
+    // },
     {
         path: '*',
         element: <Navigate to={'/404'} replace={false} />,

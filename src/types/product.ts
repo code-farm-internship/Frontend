@@ -1,46 +1,32 @@
-import { ICategory } from './category';
-import { IDiscount } from './discount';
-import { IFormat } from './format';
-import { IVendor } from './vendor';
-
-export interface IVariant {
-    _id: string;
-    image: string;
-    imageUrlRef: string;
-    price: number;
-    stock: number;
-    formatId: IFormat;
-    discountId?: IDiscount;
-    createdAt: string;
-    updatedAt: string;
-}
-
-interface LibraryItem {
-    imageUrl: string;
-    imageRef: string;
-}
-
-export interface IProductResponse {
+export interface IProduct {
     _id: string;
     name: string;
+    description?: string;
+    author: string;
+    sold: number;
     rating: number;
     reviewCount: number;
-    sold: number;
     status: string;
-    thumbnail: string;
-    thumbnailRef: string;
-    library: LibraryItem[];
     isAvailable: boolean;
-    categoryId: ICategory;
-    vendorId: IVendor;
-    variants: IVariant[];
-    variantFormats: string[];
+    thumbnail?: string;
+    priceRange: {
+        min: number;
+        max: number;
+    };
     createdAt: string;
-    updatedAt: string;
+
+    categoryId?: {
+        _id: string;
+        name: string;
+    };
+    vendorId?: {
+        _id: string;
+        name: string;
+    };
 }
-export interface ProductListResponse {
-    data: IProductResponse[];
-    total: number;
-    page: number;
-    limit: number;
+
+export interface IGetAllProductsResponse {
+    products: IProduct[];
+    totalDocs: number;
+    totalPages: number;
 }
