@@ -5,6 +5,7 @@ import { ProductsParams } from '@/types/product';
 import { useGetProducts } from '@/hooks/products/queries/useGetProducts';
 import productService from '@/services/product.service';
 import ProductGrid from './component/Products';
+import { useLocation } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -23,6 +24,21 @@ const AllProducts: React.FC = () => {
     const [showFilters, setShowFilters] = useState(true);
     const [categories, setCategories] = useState<{ _id: string; name: string }[]>([]);
     const [searchValue, setSearchValue] = useState('');
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const search = params.get('search') ?? '';
+        if (search.length >= 2) {
+            setFilters((prev) => ({
+                ...prev,
+                search,
+                page: 1,
+            }));
+            setSearchValue(search);
+        }
+    }, [location.search]);
 
     // Lấy dữ liệu sản phẩm
     const { data, isLoading } = useGetProducts(filters);

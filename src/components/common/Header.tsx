@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../../data/mock-data';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import HeaderUserToolbar from './HeaderUserToolbar';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -16,6 +17,15 @@ const Header = () => {
     const cartQuantity = useCartStore((state) => state.items.length);
     const isAuthenticate = useUserStore((state) => state.isAuthenticate);
     const location = useLocation();
+    const [keyword, setKeyword] = React.useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        const trimmed = keyword.trim();
+        if (trimmed.length >= 2) {
+            void navigate(`/products/all?search=${keyword}`);
+        }
+    };
 
     return (
         <header>
@@ -51,6 +61,13 @@ const Header = () => {
                             <div className='relative w-full'>
                                 <input
                                     type='text'
+                                    value={keyword}
+                                    onChange={(e) => {
+                                        setKeyword(e.target.value);
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') handleSearch();
+                                    }}
                                     placeholder='Tìm kiếm sách, tác giả...'
                                     className='w-full rounded-full border border-gray-200 py-2 pl-12 pr-4 transition-all focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200'
                                 />
