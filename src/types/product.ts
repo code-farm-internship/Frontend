@@ -47,6 +47,16 @@ export interface ProductListResponse {
   totalPages?: number;
 }
 
+export interface ApiProductListResponse {
+  message: string;
+  status: number;
+  data: {
+    products: IProductResponse[];
+    totalDocs: number;
+    totalPages: number;
+  };
+}
+
 export interface ProductsParams {
   page?: number;
   limit?: number;

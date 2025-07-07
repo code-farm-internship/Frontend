@@ -3,7 +3,7 @@ import { Book, Category, Banner, NavItem } from '../types';
 export const navItems: NavItem[] = [
     { label: 'Trang Chủ', href: '/' },
     { label: 'Sản phẩm', href: '/products/all' },
-    { label: 'Liên hệ với chúng tôi', href: '/contact' },
+    { label: 'Liên hệ với chúng tôi', href: 'https://web.facebook.com/groups/3778664455722812' },
 ];
 
 export const banners: Banner[] = [
