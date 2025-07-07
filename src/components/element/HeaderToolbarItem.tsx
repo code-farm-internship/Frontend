@@ -12,6 +12,7 @@ const HeaderToolbarItem = ({ route, title, handleAction }: UserToolbarProps) => 
         <div
             className='space-y-1'
             onClick={() => {
+                console.log('HeaderToolbarItem clicked:', title);
                 if (isHandleAction) {
                     handleAction();
                 }

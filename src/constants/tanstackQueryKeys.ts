@@ -16,6 +16,7 @@ export const TANSTACK_QUERY_KEYS = {
     AUTH: {
         REGISTER: 'register',
         LOGIN: 'login',
+        LOGOUT: 'logout',
         VERIFY_EMAIL: 'verify-email',
         RESEND_VERIFY_EMAIL: 'resend-verify-email',
     },

@@ -22,4 +22,8 @@ export const authService = {
         const res = await instance.get<IRefreshTokenResponse>('auth/refresh');
         return res.data;
     },
+    async logout() {
+        const res = await instance.get<null>('auth/logout');
+        return res.data;
+    },
 };
